@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="txt_selDevice">选择目标设备</string>
+    <string name="txt_remoteHost">目标 IP</string>
+    <string name="txt_remotePort">端口(留空为5555)</string>
+    <string name="txt_deviceList">设备列表</string>
+    <string name="txt_refresh">刷新</string>
+</resources>

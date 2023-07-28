@@ -10,38 +10,38 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.outlined.Devices
 import androidx.compose.material.icons.outlined.DevicesOther
+import androidx.compose.material.icons.outlined.Help
 import androidx.compose.material.icons.outlined.Watch
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
-import com.moling.micatoolkit.presentation.theme.wearColorPalette
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WearApp()
+            MicaToolkitTheme {
+                AppNavHost()
+            }
         }
     }
 }
@@ -49,11 +49,12 @@ class MainActivity : ComponentActivity() {
 @Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-    WearApp()
+    val emptyNavHostController = rememberSwipeDismissableNavController()
+    MainAct(emptyNavHostController)
 }
 
 @Composable
-fun WearApp() {
+fun MainAct(navController: NavHostController) {
     MicaToolkitTheme {
         /* If you have enough items in your list, use [ScalingLazyColumn] which is an optimized
          * version of LazyColumn for wear devices with some added features. For more information,
@@ -64,30 +65,39 @@ fun WearApp() {
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background)
         ) {
-            Row(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colors.background),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                IconButton(
-                    imageVector = Icons.Outlined.Watch,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .padding(end = 22.dp)
-                        .background(
-                            color = MaterialTheme.colors.primary, shape = CircleShape
+                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(top = 25.dp)) {
+                    Text(
+                        text = stringResource(id = R.string.txt_selDevice),
+                        modifier = Modifier.padding(bottom = 15.dp)
+                    )
+                    Row {
+                        IconButton(
+                            imageVector = Icons.Outlined.Watch,
+                            backgroundColor = MaterialTheme.colors.primary,
+                            modifier = Modifier.padding(end = 5.dp),
+                            onClick = { /* TODO */}
                         )
-                )
-                IconButton(
-                    imageVector = Icons.Outlined.DevicesOther,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .padding(start = 22.dp)
-                        .background(
-                            color = MaterialTheme.colors.secondary, shape = CircleShape
+                        IconButton(
+                            imageVector = Icons.Outlined.DevicesOther,
+                            backgroundColor = MaterialTheme.colors.secondary,
+                            modifier = Modifier.padding(start = 5.dp),
+                            onClick = {
+                                navController.navigate(AppNavRoute.ROUTE_TARGET)
+                            }
                         )
+                    }
+                }
+                IconButton(
+                    imageVector = Icons.Outlined.Help,
+                    backgroundColor = Color.Transparent,
+                    onClick = { /* TODO */}
                 )
             }
         }
@@ -95,17 +105,36 @@ fun WearApp() {
 }
 
 @Composable
-fun IconButton(imageVector: ImageVector, modifier: Modifier) {
-    IconButton(
-        onClick = { /*TODO*/ },
-        modifier = modifier,
-        colors = IconButtonDefaults.iconButtonColors(
-            contentColor = Color.White
-        )
+fun IconButton(imageVector: ImageVector, backgroundColor: Color, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            contentColor = Color.White,
+            backgroundColor = backgroundColor
+        ),
     ) {
         Icon(
             imageVector = imageVector,
-            contentDescription = ""
+            contentDescription = "",
+            tint = Color.White
+        )
+    }
+}
+
+@Composable
+fun IconButton(imageVector: ImageVector, modifier: Modifier, backgroundColor: Color, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            contentColor = Color.White,
+            backgroundColor = backgroundColor
+        ),
+        modifier = modifier
+    ) {
+        Icon(
+            imageVector = imageVector,
+            contentDescription = "",
+            tint = Color.White
         )
     }
 }

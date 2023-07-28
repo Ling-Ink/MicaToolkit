@@ -1,8 +1,12 @@
 <resources>
-    <string name="app_name">MicaToolkit</string>
+    <string name="app_name" translatable="false">MicaToolkit</string>
+    <string name="txt_selDevice">Select target device</string>
+    <string name="txt_remoteHost">Remote Host</string>
+    <string name="txt_remotePort">Remote Port(Default 5555)</string>
+    <string name="txt_deviceList">Device List</string>
+    <string name="txt_refresh">Refresh</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
-    <string name="hello_world">From the Square world,\nHello, %1$s!</string>
 </resources>
