@@ -1,6 +1,5 @@
 package com.moling.micatoolkit.presentation.utils
 
-import android.util.Log
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.SocketException
@@ -43,7 +42,7 @@ fun checkHost(host: String): Boolean {
 }
 
 fun InetAddress.getHost(): List<String> {
-    val address = this.hostAddress.split(".")
+    val address = requireNotNull(this.hostAddress).split(".")
     val ipC = address[0].toLong() shl 24 or
             (address[1].toLong() shl 16 and (0xff shl 16)) or
             (address[2].toLong() shl 8 and (0xff shl 8))
@@ -59,7 +58,6 @@ fun InetAddress.getHost(): List<String> {
         }
         hosts.add(ipToString(i))
     }
-    Log.d("MICA", "hosts: $hosts")
     return hosts
 }
 private fun ipToString(address: Long): String {

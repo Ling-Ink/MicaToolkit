@@ -5,4 +5,10 @@
     <string name="txt_remotePort">端口(留空为5555)</string>
     <string name="txt_deviceList">设备列表</string>
     <string name="txt_refresh">刷新</string>
+    <string name="txt_toolsList">工具列表</string>
+    <string name="status_connecting">正在连接…</string>
+    <string name="status_connected">已连接</string>
+    <string name="status_connectfailed">连接失败</string>
+    <string name="menu_deviceInfo">设备信息</string>
+    <string name="menu_screenInfo">屏幕信息</string>
 </resources>

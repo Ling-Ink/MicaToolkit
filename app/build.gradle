@@ -21,8 +21,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters  'armeabi-v7a'
+            }
         }
     }
     compileOptions {
@@ -41,6 +45,7 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += "META-INF/LICENSE*"
         }
     }
 }
@@ -70,6 +75,9 @@ dependencies {
     implementation "androidx.compose.material3:material3-window-size-class:1.1.1"
     // Material Icons Extended
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
+
+    // dadb
+    implementation "dev.mobile:dadb:1.2.6"
 
     // Testing
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"

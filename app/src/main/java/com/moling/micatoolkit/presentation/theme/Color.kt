@@ -11,14 +11,19 @@ val Red400 = Color(0xFFCF6679)
 
 val IndigoA200 = Color(0xFF536DFE)
 val DeepPurple100 = Color(0xFFD1C4E9)
+val Gray800 = Color(0xFF424242)
+val Gray400 = Color(0xFFBDBDBD)
 
 internal val wearColorPalette: Colors = Colors(
     primary = IndigoA200,
-    primaryVariant = Purple700,
     secondary = DeepPurple100,
+    surface = Gray800,
+    onSurface = Gray400,
+
+    primaryVariant = Purple700,
     secondaryVariant = Teal200,
     error = Red400,
     onPrimary = Color.Black,
     onSecondary = Color.Black,
-    onError = Color.Black
+    onError = Color.Black,
 )

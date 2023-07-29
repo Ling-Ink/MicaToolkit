@@ -1,9 +1,11 @@
 package com.moling.micatoolkit.presentation
 
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.Text
@@ -12,18 +14,17 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.*
 import androidx.wear.compose.material.MaterialTheme.colors
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
+import com.moling.micatoolkit.presentation.utils.checkHost
 import com.moling.micatoolkit.presentation.utils.getHost
 import com.moling.micatoolkit.presentation.utils.getIpAddress
-import com.moling.micatoolkit.presentation.utils.checkHost
+import com.moling.micatoolkit.presentation.utils.showToast
 import java.net.InetAddress
-
-private var host = mutableStateOf("")
-private var port = mutableStateOf("")
 
 class TargetActivity : ComponentActivity()
 
@@ -46,20 +47,30 @@ fun TargetAct(navController: NavHostController) {
                 deviceList = addressList,
                 onRefreshClick = {
                     Thread {
-                        val hosts = InetAddress.getByName(getIpAddress()).getHost()
+                        val hosts: List<String>
+                        try {
+                            hosts = InetAddress.getByName(getIpAddress()).getHost()
 
-                        val hostsReachable = mutableListOf<String>()
-                        var count = 0
-                        for (host in hosts) {
-                            count ++
-                            progress = count / 255f
-                            if (checkHost(host)) {
-                                hostsReachable.add(host)
+                            val hostsReachable = mutableListOf<String>()
+                            var count = 0
+                            for (host in hosts) {
+                                count ++
+                                progress = count / 255f
+                                if (checkHost(host)) {
+                                    hostsReachable.add(host)
+                                }
                             }
+                            addressList.swapList(hostsReachable)
+                            progress = 0f
+                        } catch (e: NumberFormatException) {
+                            e.toString().showToast(Toast.LENGTH_SHORT)
                         }
-                        addressList.swapList(hostsReachable)
-                        progress = 0f
                     }.start()
+                },
+                onHostClick = {
+                    navController.navigate("${AppNavRoute.ROUTE_PORT}/${it}") {
+                        popUpTo(AppNavRoute.ROUTE_MAIN)
+                    }
                 }
             )
         }
@@ -73,7 +84,7 @@ fun TargetAct(navController: NavHostController) {
 }
 
 @Composable
-fun DeviceList(deviceList: List<String>, onRefreshClick: () -> Unit) {
+fun DeviceList(deviceList: List<String>, onRefreshClick: () -> Unit, onHostClick: (item: String) -> Unit) {
     ScalingLazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -100,14 +111,17 @@ fun DeviceList(deviceList: List<String>, onRefreshClick: () -> Unit) {
         }
         items(deviceList) { item: String ->
             Chip(
-                onClick = { },
+                onClick = { onHostClick(item) },
                 colors = ChipDefaults.secondaryChipColors(),
                 label = {
                     Text(
                         text = item,
-                        color = Color.White
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
                     )
-                }
+                },
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }

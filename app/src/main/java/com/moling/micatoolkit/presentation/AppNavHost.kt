@@ -1,6 +1,8 @@
 package com.moling.micatoolkit.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
@@ -15,10 +17,43 @@ fun AppNavHost() {
         composable(AppNavRoute.ROUTE_TARGET) {
             TargetAct(navController)
         }
+        composable(AppNavRoute.ROUTE_HELP) {
+            HelpAct(navController)
+        }
+        composable(
+            "${AppNavRoute.ROUTE_PORT}/{${AppNavParam.PARAM_HOST}}",
+            arguments = listOf(
+                navArgument(AppNavParam.PARAM_HOST) { type = NavType.StringType }
+            )
+        ) {
+            val args = requireNotNull(it.arguments)
+            val host = requireNotNull(args.getString(AppNavParam.PARAM_HOST))
+            PortAct(navController, host)
+        }
+        composable(
+            "${AppNavRoute.ROUTE_TOOL}/{${AppNavParam.PARAM_HOST}}/{${AppNavParam.PARAM_PORT}}",
+            arguments = listOf(
+                navArgument(AppNavParam.PARAM_HOST) { type = NavType.StringType },
+                navArgument(AppNavParam.PARAM_PORT) { type = NavType.IntType }
+            )
+        ) {
+            val args = requireNotNull(it.arguments)
+            val host = requireNotNull(args.getString(AppNavParam.PARAM_HOST))
+            val port = requireNotNull(args.getInt(AppNavParam.PARAM_PORT))
+            ToolAct(navController, host, port)
+        }
     }
 }
 
 object AppNavRoute {
     const val ROUTE_MAIN = "main"
     const val ROUTE_TARGET = "target"
+    const val ROUTE_PORT = "port"
+    const val ROUTE_HELP = "help"
+    const val ROUTE_TOOL = "tool"
+}
+
+object AppNavParam {
+    const val PARAM_HOST = "host"
+    const val PARAM_PORT = "port"
 }

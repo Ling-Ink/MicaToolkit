@@ -6,7 +6,10 @@
 
 package com.moling.micatoolkit.presentation
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -15,7 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DevicesOther
 import androidx.compose.material.icons.outlined.Help
 import androidx.compose.material.icons.outlined.Watch
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,11 +35,22 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.moling.micatoolkit.R
+import com.moling.micatoolkit.presentation.model.Constants
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 
 class MainActivity : ComponentActivity() {
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        lateinit var context: Context
+        lateinit var toast: Toast
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Constants.SharedPreferences = getSharedPreferences("MicaToolkit", MODE_PRIVATE)
+        Constants.filesDir = filesDir
+        context = applicationContext
+        //直接在此处获取一个toast对象
+        toast = Toast.makeText(applicationContext,"",Toast.LENGTH_SHORT)
         setContent {
             MicaToolkitTheme {
                 AppNavHost()
@@ -82,7 +95,9 @@ fun MainAct(navController: NavHostController) {
                             imageVector = Icons.Outlined.Watch,
                             backgroundColor = MaterialTheme.colors.primary,
                             modifier = Modifier.padding(end = 5.dp),
-                            onClick = { /* TODO */}
+                            onClick = {
+                                navController.navigate("${AppNavRoute.ROUTE_PORT}/localhost")
+                            }
                         )
                         IconButton(
                             imageVector = Icons.Outlined.DevicesOther,
