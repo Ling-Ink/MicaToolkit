@@ -11,4 +11,13 @@
     <string name="status_connectfailed">连接失败</string>
     <string name="menu_deviceInfo">设备信息</string>
     <string name="menu_screenInfo">屏幕信息</string>
+    <string name="detail_device_model">设备型号</string>
+    <string name="detail_device_build">Android 版本</string>
+    <string name="detail_device_brand">设备品牌</string>
+    <string name="detail_device_sdk">SDK 版本</string>
+    <string name="detail_device_patch">安全补丁程序级别</string>
+    <string name="detail_screen_size_default">默认屏幕分辨率</string>
+    <string name="detail_screen_size_external">当前屏幕分辨率</string>
+    <string name="detail_screen_density_default">默认屏幕 Dpi</string>
+    <string name="detail_screen_density_external">当前屏幕 Dpi</string>
 </resources>

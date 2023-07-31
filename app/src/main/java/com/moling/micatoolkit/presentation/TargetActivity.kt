@@ -68,9 +68,7 @@ fun TargetAct(navController: NavHostController) {
                     }.start()
                 },
                 onHostClick = {
-                    navController.navigate("${AppNavRoute.ROUTE_PORT}/${it}") {
-                        popUpTo(AppNavRoute.ROUTE_MAIN)
-                    }
+                    navController.navigate("${AppNavRoute.ROUTE_PORT}/${it}")
                 }
             )
         }

@@ -11,6 +11,16 @@
     <string name="status_connectfailed">Connect Failed</string>
     <string name="menu_deviceInfo">Device Info</string>
     <string name="menu_screenInfo">Screen Info</string>
+    <string name="detail_device_model">Device Model</string>
+    <string name="detail_device_androidID" translatable="false">Android ID</string>
+    <string name="detail_device_build">Android Version</string>
+    <string name="detail_device_brand">Device Brand</string>
+    <string name="detail_device_sdk">SDK Version</string>
+    <string name="detail_device_patch">Security Patch</string>
+    <string name="detail_screen_size_default">Default Screen Size</string>
+    <string name="detail_screen_size_external">External Screen Size</string>
+    <string name="detail_screen_density_default">Default Screen Density</string>
+    <string name="detail_screen_density_external">External Screen Density</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

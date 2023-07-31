@@ -37,14 +37,14 @@ fun InitializeMenuList() {
         MenuItem(
             icon = Icons.Outlined.PermDeviceInformation,
             label = stringResource(id = R.string.menu_deviceInfo),
-            route = "deviceInfo"
+            route = ToolsRoute.TOOL_DEVICE
         )
     )
     menuListCon.add(
         MenuItem(
             icon = Icons.Outlined.FitScreen,
             label = stringResource(id = R.string.menu_screenInfo),
-            route = "screenInfo"
+            route = ToolsRoute.TOOL_SCREEN
         )
     )
 }
@@ -58,13 +58,13 @@ fun ToolAct(navController: NavHostController, host: String, port: Int) {
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background)
         ) {
-            ToolList(host, port)
+            ToolList(navController, host, port)
         }
     }
 }
 
 @Composable
-fun ToolList(host: String, port: Int) {
+fun ToolList(navController: NavHostController, host: String, port: Int) {
     var connectStatus by remember { mutableStateOf(0) }
     val menuList = remember { mutableStateListOf<MenuItem>() }
     connectStatus = adbConnect(host, port)
@@ -137,7 +137,11 @@ fun ToolList(host: String, port: Int) {
         if (connectStatus == 1) {
             items(menuList) {
                 Chip(
-                    onClick = {  },
+                    onClick = {
+                              navController.navigate("${AppNavRoute.ROUTE_DETAIL}/${it.route}") {
+                                  popUpTo(AppNavRoute.ROUTE_TOOL)
+                              }
+                    },
                     colors = ChipDefaults.secondaryChipColors(),
                     modifier = Modifier.fillMaxWidth(),
                     label = {
