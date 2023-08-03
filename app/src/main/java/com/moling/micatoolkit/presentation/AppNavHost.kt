@@ -73,6 +73,7 @@ object AppNavParam {
 object ToolsRoute {
     const val TOOL_DEVICE = "deviceInfo"
     const val TOOL_SCREEN = "screenInfo"
+    const val TOOL_FILE = "fileExplorer"
 }
 
 object DetailRoute {

@@ -12,7 +12,12 @@ fun Dadb.execShell(command: String): AdbShellResponse {
     }
     thread.start()
     thread.join()
-    return requireNotNull(execResult)
+
+    return AdbShellResponse(
+        output = requireNotNull(execResult).output.split("\n").dropLast(1).joinToString("\n"),
+        errorOutput = requireNotNull(execResult).errorOutput.split("\n").dropLast(1).joinToString("\n"),
+        exitCode = requireNotNull(execResult).exitCode
+    )
 }
 
 fun Dadb.installApk(apkFile: File): String {

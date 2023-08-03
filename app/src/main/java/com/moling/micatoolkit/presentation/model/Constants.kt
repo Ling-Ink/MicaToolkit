@@ -9,5 +9,11 @@ class Constants {
         var SharedPreferences: SharedPreferences? = null
         var adb: Dadb? = null
         var filesDir: File? = null
+
+        const val TYPE_NO_PERM = -1
+        const val TYPE_OTHER = 0
+        const val TYPE_DIRECTORY = 1
+        const val TYPE_APK = 2
+        const val TYPE_IMAGE = 3
     }
 }

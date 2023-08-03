@@ -47,6 +47,13 @@ fun InitializeMenuList() {
             route = ToolsRoute.TOOL_SCREEN
         )
     )
+    menuListCon.add(
+        MenuItem(
+            icon = Icons.Outlined.Folder,
+            label = stringResource(id = R.string.menu_fileList),
+            route = ToolsRoute.TOOL_FILE
+        )
+    )
 }
 
 @Composable
