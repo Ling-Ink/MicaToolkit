@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
@@ -49,7 +50,9 @@ class MainActivity : ComponentActivity() {
         Constants.SharedPreferences = getSharedPreferences("MicaToolkit", MODE_PRIVATE)
         Constants.filesDir = filesDir
         context = applicationContext
-        //直接在此处获取一个toast对象
+        // 请求权限
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 222)
+        // 直接在此处获取一个toast对象
         toast = Toast.makeText(applicationContext,"",Toast.LENGTH_SHORT)
         setContent {
             MicaToolkitTheme {

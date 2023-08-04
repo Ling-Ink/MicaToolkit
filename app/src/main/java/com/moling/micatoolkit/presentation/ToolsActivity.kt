@@ -145,10 +145,16 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
             items(menuList) {
                 Chip(
                     onClick = {
-                              navController.navigate("${AppNavRoute.ROUTE_DETAIL}/${it.route}") {
-                                  popUpTo(AppNavRoute.ROUTE_TOOL)
-                              }
-                    },
+                        if (it.route == ToolsRoute.TOOL_FILE) {
+                            navController.navigate("${AppNavRoute.ROUTE_FILE}/${FileSource.SOURCE_REMOTE}") {
+                                popUpTo(AppNavRoute.ROUTE_TOOL)
+                            }
+                        } else {
+                            navController.navigate("${AppNavRoute.ROUTE_DETAIL}/${it.route}") {
+                                popUpTo(AppNavRoute.ROUTE_TOOL)
+                            }
+                        }
+                              },
                     colors = ChipDefaults.secondaryChipColors(),
                     modifier = Modifier.fillMaxWidth(),
                     label = {

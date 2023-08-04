@@ -14,12 +14,15 @@ fun AppNavHost() {
         composable(AppNavRoute.ROUTE_MAIN) {
             MainAct(navController)
         }
+
         composable(AppNavRoute.ROUTE_TARGET) {
             TargetAct(navController)
         }
+
         composable(AppNavRoute.ROUTE_HELP) {
             HelpAct(navController)
         }
+
         composable(
             "${AppNavRoute.ROUTE_PORT}/{${AppNavParam.PARAM_HOST}}",
             arguments = listOf(
@@ -30,6 +33,7 @@ fun AppNavHost() {
             val host = requireNotNull(args.getString(AppNavParam.PARAM_HOST))
             PortAct(navController, host)
         }
+
         composable(
             "${AppNavRoute.ROUTE_TOOL}/{${AppNavParam.PARAM_HOST}}/{${AppNavParam.PARAM_PORT}}",
             arguments = listOf(
@@ -42,6 +46,7 @@ fun AppNavHost() {
             val port = requireNotNull(args.getInt(AppNavParam.PARAM_PORT))
             ToolAct(navController, host, port)
         }
+
         composable(
             "${AppNavRoute.ROUTE_DETAIL}/{${AppNavParam.PARAM_TYPE}}",
             arguments = listOf(
@@ -51,6 +56,17 @@ fun AppNavHost() {
             val args = requireNotNull(it.arguments)
             val type = requireNotNull(args.getString(AppNavParam.PARAM_TYPE))
             DetailAct(type)
+        }
+
+        composable(
+            "${AppNavRoute.ROUTE_FILE}/{${AppNavParam.PARAM_TYPE}}",
+            arguments = listOf(
+                navArgument(AppNavParam.PARAM_TYPE) { type = NavType.StringType }
+            )
+        ) {
+            val args = requireNotNull(it.arguments)
+            val type = requireNotNull(args.getString(AppNavParam.PARAM_TYPE))
+            FilesAct(type)
         }
     }
 }
@@ -62,6 +78,7 @@ object AppNavRoute {
     const val ROUTE_HELP = "help"
     const val ROUTE_TOOL = "tool"
     const val ROUTE_DETAIL = "detail"
+    const val ROUTE_FILE = "file"
 }
 
 object AppNavParam {
@@ -79,4 +96,9 @@ object ToolsRoute {
 object DetailRoute {
     const val DETAIL_SCREEN_SIZE = "screenSize"
     const val DETAIL_SCREEN_DENSITY = "screenDensity"
+}
+
+object FileSource {
+    const val SOURCE_LOCAL = "local"
+    const val SOURCE_REMOTE = "remote"
 }

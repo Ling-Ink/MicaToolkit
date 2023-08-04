@@ -1,12 +1,13 @@
-package com.moling.micatoolkit.presentation.utils
+package com.moling.micatoolkit.presentation.utils.fileUtils
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import com.moling.micatoolkit.presentation.model.Constants
 import com.moling.micatoolkit.presentation.model.FileItem
+import com.moling.micatoolkit.presentation.utils.execShell
+import com.moling.micatoolkit.presentation.utils.getFileType
 
-
-class FileUtils(location: String = "/storage/emulated/0") {
+class RemoteFileUtils(location: String = "/storage/emulated/0") {
     private var location: String
 
     init {

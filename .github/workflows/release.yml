@@ -1,9 +1,12 @@
-name: Android CI
+name: Android Release
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "master" ]
+    inputs:
+      tag:
+        description: 'Release version tag'
+        required: true
+        default: 'Rel'
 
 jobs:
   build:
@@ -36,9 +39,11 @@ jobs:
         keyPassword: ${{ secrets.KEY_PASSWORD }}
       env:
         BUILD_TOOLS_VERSION: "30.0.2"
-
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
+    
+    - run: mv ${{ steps.sign_app.outputs.signedReleaseFile }} MicaToolkit_${{ github.event.inputs.tag }}.apk
+    - uses: ncipollo/release-action@v1
       with:
-        name: MicaToolkit-apk
-        path: ${{steps.sign_app.outputs.signedReleaseFile}}
+        artifacts: "*.apk"
+        tag: ${{ github.event.inputs.tag }}
+        token: ${{ secrets.RELEASE_TOKEN }}
+        generateReleaseNotes: true
