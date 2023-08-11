@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation
+package com.moling.micatoolkit.presentation.activities
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.*
 import com.moling.micatoolkit.R
+import com.moling.micatoolkit.presentation.DETAIL_DEVICE
+import com.moling.micatoolkit.presentation.DETAIL_SCREEN
+import com.moling.micatoolkit.presentation.ToolsRoute
 import com.moling.micatoolkit.presentation.model.Constants
 import com.moling.micatoolkit.presentation.model.DetailItem
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
@@ -30,18 +33,8 @@ var file = RemoteFileUtils()
 fun InitializeDetails(detailType: String) {
     detailList.clear()
     when (detailType) {
-        ToolsRoute.TOOL_DEVICE -> {
-            detailList.add(requireNotNull(Constants.adb).getDeviceBrand(stringResource(id = R.string.detail_device_brand)))
-            detailList.add(requireNotNull(Constants.adb).getDeviceModel(stringResource(id = R.string.detail_device_model)))
-            detailList.add(requireNotNull(Constants.adb).getDeviceAndroidId(stringResource(id = R.string.detail_device_androidID)))
-            detailList.add(requireNotNull(Constants.adb).getDeviceAndroidBuild(stringResource(id = R.string.detail_device_build)))
-            detailList.add(requireNotNull(Constants.adb).getDeviceAndroidSDKVersion(stringResource(id = R.string.detail_device_sdk)))
-            detailList.add(requireNotNull(Constants.adb).getDeviceAndroidSecPatch(stringResource(id = R.string.detail_device_patch)))
-        }
-        ToolsRoute.TOOL_SCREEN -> {
-            detailList.addAll(requireNotNull(Constants.adb).getScreenSize(stringResource(R.string.detail_screen_size_default), stringResource(R.string.detail_screen_size_external)))
-            detailList.addAll(requireNotNull(Constants.adb).getScreenDensity(stringResource(R.string.detail_screen_density_default), stringResource(R.string.detail_screen_density_external)))
-        }
+        ToolsRoute.TOOL_DEVICE -> detailList.addAll(DETAIL_DEVICE())
+        ToolsRoute.TOOL_SCREEN -> detailList.addAll(DETAIL_SCREEN())
     }
 }
 
@@ -88,7 +81,7 @@ fun DetailAct(detailType: String) {
                             .fillParentMaxHeight()
                             .padding(start = 10.dp)) {
                             Text(
-                                text = it.title,
+                                text = stringResource(id = it.titleId),
                                 color = Color.White,
                                 modifier = Modifier.padding(start = 5.dp)
                             )

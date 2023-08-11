@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation
+package com.moling.micatoolkit.presentation.activities
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.moling.micatoolkit.R
+import com.moling.micatoolkit.presentation.AppNavRoute
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 
 class PortActivity : ComponentActivity()

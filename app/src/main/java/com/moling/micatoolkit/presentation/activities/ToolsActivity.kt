@@ -1,21 +1,43 @@
-package com.moling.micatoolkit.presentation
+package com.moling.micatoolkit.presentation.activities
 
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.Done
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.*
+import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.CircularProgressIndicator
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.ListHeader
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.items
 import com.moling.micatoolkit.R
+import com.moling.micatoolkit.presentation.AppNavRoute
+import com.moling.micatoolkit.presentation.FileSource
+import com.moling.micatoolkit.presentation.MENU_TOOLS
+import com.moling.micatoolkit.presentation.ToolsRoute
 import com.moling.micatoolkit.presentation.model.Constants
 import com.moling.micatoolkit.presentation.model.MenuItem
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
@@ -33,27 +55,7 @@ var menuListCon = mutableListOf<MenuItem>()
 @Composable
 fun InitializeMenuList() {
     menuListCon.clear()
-    menuListCon.add(
-        MenuItem(
-            icon = Icons.Outlined.PermDeviceInformation,
-            label = stringResource(id = R.string.menu_deviceInfo),
-            route = ToolsRoute.TOOL_DEVICE
-        )
-    )
-    menuListCon.add(
-        MenuItem(
-            icon = Icons.Outlined.FitScreen,
-            label = stringResource(id = R.string.menu_screenInfo),
-            route = ToolsRoute.TOOL_SCREEN
-        )
-    )
-    menuListCon.add(
-        MenuItem(
-            icon = Icons.Outlined.Folder,
-            label = stringResource(id = R.string.menu_fileList),
-            route = ToolsRoute.TOOL_FILE
-        )
-    )
+    menuListCon.addAll(MENU_TOOLS())
 }
 
 @Composable
@@ -160,7 +162,7 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
                     label = {
                         Icon(imageVector = it.icon, contentDescription = "")
                         Text(
-                            text = it.label,
+                            text = stringResource(id = it.labelId),
                             color = Color.White,
                             modifier = Modifier.padding(start = 10.dp)
                         )

@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation
+package com.moling.micatoolkit.presentation.activities
 
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -19,6 +19,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.*
 import androidx.wear.compose.material.MaterialTheme.colors
 import com.moling.micatoolkit.R
+import com.moling.micatoolkit.presentation.AppNavRoute
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.checkHost
 import com.moling.micatoolkit.presentation.utils.getHost

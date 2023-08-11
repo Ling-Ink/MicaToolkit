@@ -4,7 +4,7 @@
  * changes to the libraries and their usages.
  */
 
-package com.moling.micatoolkit.presentation
+package com.moling.micatoolkit.presentation.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -36,6 +36,8 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.moling.micatoolkit.R
+import com.moling.micatoolkit.presentation.AppNavHost
+import com.moling.micatoolkit.presentation.AppNavRoute
 import com.moling.micatoolkit.presentation.model.Constants
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 
@@ -60,6 +62,11 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+@Composable
+fun getStringResource(id: Int): String {
+    return stringResource(id = id)
 }
 
 @Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)

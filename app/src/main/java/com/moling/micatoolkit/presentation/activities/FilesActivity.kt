@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation
+package com.moling.micatoolkit.presentation.activities
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Arrangement
@@ -19,8 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.*
+import com.moling.micatoolkit.presentation.FileSource
 import com.moling.micatoolkit.presentation.model.Constants
 import com.moling.micatoolkit.presentation.model.DetailItem
+import com.moling.micatoolkit.presentation.model.FileDisplay
 import com.moling.micatoolkit.presentation.model.FileItem
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.fileUtils.LocalFileUtils
@@ -31,9 +33,9 @@ class FilesActivity : ComponentActivity()
 var remoteFileUtil: RemoteFileUtils? = null
 var localFileUtil: LocalFileUtils? = null
 
-fun loadFiles(fileSource: String): List<DetailItem> {
-    val fileItem = mutableListOf<DetailItem>()
-    fileItem.add(DetailItem(Icons.Outlined.ArrowBack, "..", "", ".."))
+fun loadFiles(fileSource: String): List<FileDisplay> {
+    val fileItem = mutableListOf<FileDisplay>()
+    fileItem.add(FileDisplay(Icons.Outlined.ArrowBack, "..", "", ".."))
 
     val dirs = mutableListOf<FileItem>()
     if (fileSource == FileSource.SOURCE_REMOTE)
@@ -43,7 +45,7 @@ fun loadFiles(fileSource: String): List<DetailItem> {
 
     fileItem.addAll(
         dirs.map { fileItem ->
-            DetailItem(
+            FileDisplay(
                 when (fileItem.fileType) {
                     Constants.TYPE_DIRECTORY -> Icons.Outlined.Folder
                     Constants.TYPE_IMAGE -> Icons.Outlined.Image
@@ -96,7 +98,7 @@ fun changeParent(fileSource: String) {
 
 @Composable
 fun FilesAct(fileSource: String) {
-    val fileListRem = remember { mutableStateListOf<DetailItem>() }
+    val fileListRem = remember { mutableStateListOf<FileDisplay>() }
     val folderLocation = remember { mutableStateOf("") }
 
     if (fileSource == FileSource.SOURCE_REMOTE)

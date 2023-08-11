@@ -6,6 +6,13 @@ import androidx.navigation.navArgument
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.moling.micatoolkit.presentation.activities.DetailAct
+import com.moling.micatoolkit.presentation.activities.FilesAct
+import com.moling.micatoolkit.presentation.activities.HelpAct
+import com.moling.micatoolkit.presentation.activities.MainAct
+import com.moling.micatoolkit.presentation.activities.PortAct
+import com.moling.micatoolkit.presentation.activities.TargetAct
+import com.moling.micatoolkit.presentation.activities.ToolAct
 
 @Composable
 fun AppNavHost() {
@@ -91,6 +98,7 @@ object ToolsRoute {
     const val TOOL_DEVICE = "deviceInfo"
     const val TOOL_SCREEN = "screenInfo"
     const val TOOL_FILE = "fileExplorer"
+    const val TOOL_APPS = "appManager"
 }
 
 object DetailRoute {

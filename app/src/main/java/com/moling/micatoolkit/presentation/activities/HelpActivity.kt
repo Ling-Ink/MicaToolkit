@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation
+package com.moling.micatoolkit.presentation.activities
 
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable

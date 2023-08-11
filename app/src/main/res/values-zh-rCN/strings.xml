@@ -21,4 +21,5 @@
     <string name="detail_screen_density_default">默认屏幕 Dpi</string>
     <string name="detail_screen_density_external">当前屏幕 Dpi</string>
     <string name="menu_fileList">文件管理</string>
+    <string name="menu_appManager">应用管理</string>
 </resources>

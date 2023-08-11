@@ -22,6 +22,8 @@
     <string name="detail_screen_density_default">Default Screen Density</string>
     <string name="detail_screen_density_external">External Screen Density</string>
     <string name="menu_fileList">File Explorer</string>
+    <string name="menu_appManager">App Manager</string>
+    <string name="txt_lastDir" translatable="false">..</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
