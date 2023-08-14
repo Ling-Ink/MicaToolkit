@@ -1,6 +1,7 @@
 package com.moling.micatoolkit.presentation.activities
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,7 +40,7 @@ fun InitializeDetails(detailType: String) {
 }
 
 @Composable
-fun DetailAct(detailType: String) {
+fun DetailAct(detailType: String, titleId: Int) {
     file = RemoteFileUtils()
     MicaToolkitTheme {
         val detailListRem = remember { mutableStateListOf<DetailItem>() }
@@ -51,20 +52,11 @@ fun DetailAct(detailType: String) {
         ) {
             item {
                 ListHeader {
-                    when (detailType) {
-                        ToolsRoute.TOOL_DEVICE -> {
-                            Text(
-                                text = stringResource(id = R.string.menu_deviceInfo),
-                                color = Color.White
-                            )
-                        }
-                        ToolsRoute.TOOL_SCREEN -> {
-                            Text(
-                                text = stringResource(id = R.string.menu_screenInfo),
-                                color = Color.White
-                            )
-                        }
-                    }
+                    Text(
+                        text = stringResource(id = titleId),
+                        color = Color.White,
+                        modifier = Modifier.clickable { /* TODO: Options */ }
+                    )
                 }
             }
             items(detailListRem) {

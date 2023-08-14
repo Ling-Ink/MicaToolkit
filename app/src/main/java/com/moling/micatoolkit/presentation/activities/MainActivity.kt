@@ -64,11 +64,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun getStringResource(id: Int): String {
-    return stringResource(id = id)
-}
-
 @Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
@@ -79,10 +74,6 @@ fun DefaultPreview() {
 @Composable
 fun MainAct(navController: NavHostController) {
     MicaToolkitTheme {
-        /* If you have enough items in your list, use [ScalingLazyColumn] which is an optimized
-         * version of LazyColumn for wear devices with some added features. For more information,
-         * see d.android.com/wear/compose.
-         */
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -122,7 +113,7 @@ fun MainAct(navController: NavHostController) {
                 IconButton(
                     imageVector = Icons.Outlined.Help,
                     backgroundColor = Color.Transparent,
-                    onClick = { /* TODO */}
+                    onClick = { /* TODO: Help Activity */}
                 )
             }
         }

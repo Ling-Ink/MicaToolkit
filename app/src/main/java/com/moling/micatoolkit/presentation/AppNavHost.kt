@@ -55,25 +55,29 @@ fun AppNavHost() {
         }
 
         composable(
-            "${AppNavRoute.ROUTE_DETAIL}/{${AppNavParam.PARAM_TYPE}}",
+            "${AppNavRoute.ROUTE_DETAIL}/{${AppNavParam.PARAM_TYPE}}/{${AppNavParam.PARAM_TITLE}}",
             arguments = listOf(
-                navArgument(AppNavParam.PARAM_TYPE) { type = NavType.StringType }
+                navArgument(AppNavParam.PARAM_TYPE) { type = NavType.StringType },
+                navArgument(AppNavParam.PARAM_TITLE) { type = NavType.IntType }
             )
         ) {
             val args = requireNotNull(it.arguments)
             val type = requireNotNull(args.getString(AppNavParam.PARAM_TYPE))
-            DetailAct(type)
+            val title = requireNotNull(args.getInt(AppNavParam.PARAM_TITLE))
+            DetailAct(type, title)
         }
 
         composable(
-            "${AppNavRoute.ROUTE_FILE}/{${AppNavParam.PARAM_TYPE}}",
+            "${AppNavRoute.ROUTE_FILE}/{${AppNavParam.PARAM_TYPE}}/{${AppNavParam.PARAM_NOTE}}",
             arguments = listOf(
-                navArgument(AppNavParam.PARAM_TYPE) { type = NavType.StringType }
+                navArgument(AppNavParam.PARAM_TYPE) { type = NavType.StringType },
+                navArgument(AppNavParam.PARAM_NOTE) { type = NavType.StringType }
             )
         ) {
             val args = requireNotNull(it.arguments)
             val type = requireNotNull(args.getString(AppNavParam.PARAM_TYPE))
-            FilesAct(type)
+            val note = requireNotNull(args.getString(AppNavParam.PARAM_NOTE))
+            FilesAct(type, note)
         }
     }
 }
@@ -92,6 +96,8 @@ object AppNavParam {
     const val PARAM_HOST = "host"
     const val PARAM_PORT = "port"
     const val PARAM_TYPE = "type"
+    const val PARAM_TITLE = "title"
+    const val PARAM_NOTE = "note"
 }
 
 object ToolsRoute {

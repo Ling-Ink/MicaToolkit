@@ -1,6 +1,9 @@
 package com.moling.micatoolkit.presentation.activities
 
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,12 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.*
 import com.moling.micatoolkit.presentation.FileSource
 import com.moling.micatoolkit.presentation.model.Constants
-import com.moling.micatoolkit.presentation.model.DetailItem
 import com.moling.micatoolkit.presentation.model.FileDisplay
 import com.moling.micatoolkit.presentation.model.FileItem
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.fileUtils.LocalFileUtils
 import com.moling.micatoolkit.presentation.utils.fileUtils.RemoteFileUtils
+import com.moling.micatoolkit.presentation.utils.showToast
+import com.moling.micatoolkit.presentation.widgets.FuncChip
 
 class FilesActivity : ComponentActivity()
 
@@ -96,8 +100,9 @@ fun changeParent(fileSource: String) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun FilesAct(fileSource: String) {
+fun FilesAct(fileSource: String, browserNote: String) {
     val fileListRem = remember { mutableStateListOf<FileDisplay>() }
     val folderLocation = remember { mutableStateOf("") }
 
@@ -107,7 +112,7 @@ fun FilesAct(fileSource: String) {
         localFileUtil = LocalFileUtils()
 
     fileListRem.swapList(loadFiles(fileSource))
-    folderLocation.value = getLoc(fileSource)
+    if (browserNote == "NULL") folderLocation.value = getLoc(fileSource) else folderLocation.value = browserNote + "\n" + getLoc(fileSource)
 
     MicaToolkitTheme {
         ScalingLazyColumn(
@@ -117,28 +122,33 @@ fun FilesAct(fileSource: String) {
                 ListHeader {
                     Text(
                         text = folderLocation.value,
-                        color = Color.White
+                        color = Color.White,
+                        modifier = Modifier.clickable { /* TODO: File Manage Options */ }
                     )
                 }
             }
             items(fileListRem) {
-                Chip(
+                val l = it
+                FuncChip(
                     onClick = {
                         when (it.route) {
                             ".." -> {
                                 changeParent(fileSource)
 
                                 fileListRem.swapList(loadFiles(fileSource))
-                                folderLocation.value = getLoc(fileSource)
+                                if (browserNote == "NULL") folderLocation.value = getLoc(fileSource) else folderLocation.value = browserNote + "\n" + getLoc(fileSource)
                             }
                             null -> {/* Do Nothing */}
                             else -> {
                                 changeDir(fileSource, it.route)
 
                                 fileListRem.swapList(loadFiles(fileSource))
-                                folderLocation.value = getLoc(fileSource)
+                                if (browserNote == "NULL") folderLocation.value = getLoc(fileSource) else folderLocation.value = browserNote + "\n" + getLoc(fileSource)
                             }
                         }
+                    },
+                    onLongClick = {
+                        "Long Click".showToast(Toast.LENGTH_SHORT)
                     },
                     colors = ChipDefaults.secondaryChipColors(),
                     modifier = Modifier.fillMaxWidth(),

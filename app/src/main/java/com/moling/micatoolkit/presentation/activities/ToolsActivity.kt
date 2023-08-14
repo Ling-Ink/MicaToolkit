@@ -148,11 +148,11 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
                 Chip(
                     onClick = {
                         if (it.route == ToolsRoute.TOOL_FILE) {
-                            navController.navigate("${AppNavRoute.ROUTE_FILE}/${FileSource.SOURCE_REMOTE}") {
+                            navController.navigate("${AppNavRoute.ROUTE_FILE}/${FileSource.SOURCE_REMOTE}/NULL") {
                                 popUpTo(AppNavRoute.ROUTE_TOOL)
                             }
                         } else {
-                            navController.navigate("${AppNavRoute.ROUTE_DETAIL}/${it.route}") {
+                            navController.navigate("${AppNavRoute.ROUTE_DETAIL}/${it.route}/${it.labelId}") {
                                 popUpTo(AppNavRoute.ROUTE_TOOL)
                             }
                         }
