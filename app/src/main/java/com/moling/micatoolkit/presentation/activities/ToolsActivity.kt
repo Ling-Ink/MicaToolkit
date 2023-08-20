@@ -71,10 +71,6 @@ fun ToolAct(navController: NavHostController, host: String, port: Int) {
 fun ToolList(navController: NavHostController, host: String, port: Int) {
     var connectStatus by remember { mutableStateOf(0) }
     val funcList = remember { mutableStateListOf<FunctionItem>() }
-    connectStatus = adbConnect(host, port)
-    if (connectStatus == 1) {
-        funcList.swapList(functionList)
-    }
     FunctionList(
         headerId = R.string.txt_toolsList,
         navController = navController,
@@ -87,40 +83,16 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
                 label = {
                     Column(verticalArrangement = Arrangement.Center, modifier = Modifier.fillParentMaxHeight()) {
                         when (connectStatus) {
-                            0 -> {
-                                CircularProgressIndicator()
-                            }
-                            1 -> {
-                                Icon(imageVector = Icons.Outlined.Done, contentDescription = "")
-                            }
-                            -1 -> {
-                                Icon(imageVector = Icons.Outlined.Close, contentDescription = "")
-                            }
+                            0 -> CircularProgressIndicator()
+                            1 -> Icon(imageVector = Icons.Outlined.Done, contentDescription = "")
+                            -1 -> Icon(imageVector = Icons.Outlined.Close, contentDescription = "")
                         }
                     }
                     Column(verticalArrangement = Arrangement.Center, modifier = Modifier.fillParentMaxHeight()) {
                         when (connectStatus) {
-                            0 -> {
-                                Text(
-                                    text = stringResource(id = R.string.status_connecting),
-                                    color = Color.White,
-                                    modifier = Modifier.padding(start = 5.dp)
-                                )
-                            }
-                            1 -> {
-                                Text(
-                                    text = stringResource(id = R.string.status_connected),
-                                    color = Color.White,
-                                    modifier = Modifier.padding(start = 5.dp)
-                                )
-                            }
-                            -1 -> {
-                                Text(
-                                    text = stringResource(id = R.string.status_connectfailed),
-                                    color = Color.White,
-                                    modifier = Modifier.padding(start = 5.dp)
-                                )
-                            }
+                            0 -> HeaderText(id = R.string.status_connecting)
+                            1 -> HeaderText(id = R.string.status_connected)
+                            -1 -> HeaderText(id = R.string.status_connectfailed)
                         }
                         Text(
                             text = "${host}:${port}",
@@ -132,6 +104,22 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
                 }
             )
         }
+    )
+    Thread {
+        if (connectStatus == 0) {
+            connectStatus = adbConnect(host, port)
+            if (connectStatus == 1)
+                funcList.swapList(functionList)
+        }
+    }.start()
+}
+
+@Composable
+fun HeaderText(id: Int) {
+    Text(
+        text = stringResource(id = id),
+        color = Color.White,
+        modifier = Modifier.padding(start = 5.dp)
     )
 }
 

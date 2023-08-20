@@ -1,61 +1,103 @@
 package com.moling.micatoolkit.presentation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Android
+import androidx.compose.material.icons.outlined.AspectRatio
+import androidx.compose.material.icons.outlined.DeveloperMode
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.FitScreen
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.GridView
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.PermDeviceInformation
+import androidx.compose.material.icons.outlined.Security
+import androidx.compose.material.icons.outlined.Watch
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.model.Constants
-import com.moling.micatoolkit.presentation.model.DetailItem
 import com.moling.micatoolkit.presentation.model.FunctionItem
-import com.moling.micatoolkit.presentation.model.MenuItem
-import com.moling.micatoolkit.presentation.utils.getDeviceAndroidBuild
-import com.moling.micatoolkit.presentation.utils.getDeviceAndroidId
-import com.moling.micatoolkit.presentation.utils.getDeviceAndroidSDKVersion
-import com.moling.micatoolkit.presentation.utils.getDeviceAndroidSecPatch
-import com.moling.micatoolkit.presentation.utils.getDeviceBrand
-import com.moling.micatoolkit.presentation.utils.getDeviceModel
-import com.moling.micatoolkit.presentation.utils.getScreenDensity
-import com.moling.micatoolkit.presentation.utils.getScreenSize
+import com.moling.micatoolkit.presentation.utils.execShell
+
+fun AdbExec(command: String): String {
+    return requireNotNull(Constants.adb).execShell(command).output
+}
 
 fun FUNC_TOOLS(): List<FunctionItem> {
     return listOf(
         FunctionItem(
             icon = Icons.Outlined.PermDeviceInformation,
             titleId = R.string.menu_deviceInfo,
-            onClickRoute = ToolsRoute.TOOL_DEVICE
+            onClickRoute = "${AppNavRoute.ROUTE_DETAIL}/${ToolsRoute.TOOL_DEVICE}/${R.string.menu_deviceInfo}"
         ),
         FunctionItem(
             icon = Icons.Outlined.FitScreen,
             titleId = R.string.menu_screenInfo,
-            onClickRoute = ToolsRoute.TOOL_SCREEN
+            onClickRoute = "${AppNavRoute.ROUTE_DETAIL}/${ToolsRoute.TOOL_SCREEN}/${R.string.menu_screenInfo}"
         ),
         FunctionItem(
             icon = Icons.Outlined.Folder,
             titleId = R.string.menu_fileList,
-            onClickRoute = ToolsRoute.TOOL_FILE
+            onClickRoute = "${AppNavRoute.ROUTE_FILE}/${FileSource.SOURCE_REMOTE}/NULL"
         ),
         FunctionItem(
             icon = Icons.Outlined.GridView,
             titleId = R.string.menu_appManager,
-            onClickRoute = ToolsRoute.TOOL_APPS
+            onClickRoute = "${AppNavRoute.ROUTE_DETAIL}/${ToolsRoute.TOOL_APPS}/${R.string.menu_appManager}"
         ),
     )
 }
 
-fun DETAIL_DEVICE(): List<DetailItem> {
+fun FUNC_DEVICE(): List<FunctionItem> {
     return listOf(
-        requireNotNull(Constants.adb).getDeviceBrand(R.string.detail_device_brand),
-        requireNotNull(Constants.adb).getDeviceModel(R.string.detail_device_model),
-        requireNotNull(Constants.adb).getDeviceAndroidId(R.string.detail_device_androidID),
-        requireNotNull(Constants.adb).getDeviceAndroidBuild(R.string.detail_device_build),
-        requireNotNull(Constants.adb).getDeviceAndroidSDKVersion(R.string.detail_device_sdk),
-        requireNotNull(Constants.adb).getDeviceAndroidSecPatch(R.string.detail_device_patch),
+        FunctionItem(
+            icon = Icons.Outlined.Watch,
+            titleId = R.string.detail_device_brand,
+            subTitle = AdbExec("getprop ro.product.brand")
+        ),
+        FunctionItem(
+            icon = Icons.Outlined.Info,
+            titleId = R.string.detail_device_model,
+            subTitle = AdbExec("getprop ro.product.model")
+        ),
+        FunctionItem(
+            icon = Icons.Outlined.Android,
+            titleId = R.string.detail_device_androidID,
+            subTitle = AdbExec("settings get secure android_id")
+        ),
+        FunctionItem(
+            icon = Icons.Outlined.Android,
+            titleId = R.string.detail_device_build,
+            subTitle = AdbExec("getprop ro.build.version.release")
+        ),
+        FunctionItem(
+            icon = Icons.Outlined.DeveloperMode,
+            titleId = R.string.detail_device_sdk,
+            subTitle = AdbExec("getprop ro.build.version.sdk")
+        ),
+        FunctionItem(
+            icon = Icons.Outlined.Security,
+            titleId = R.string.detail_device_patch,
+            subTitle = AdbExec("getprop ro.build.version.security_patch")
+        ),
     )
 }
 
-fun DETAIL_SCREEN(): List<DetailItem> {
-    return requireNotNull(Constants.adb).getScreenSize(R.string.detail_screen_size_default, R.string.detail_screen_size_external) +
-            requireNotNull(Constants.adb).getScreenDensity(R.string.detail_screen_density_default, R.string.detail_screen_density_external)
+fun FUNC_SCREEN(): List<FunctionItem> {
+    val wm_size = AdbExec("wm size").split("\n")
+    val wm_density = AdbExec("wm density").split("\n")
+    val ret = mutableListOf<FunctionItem>()
+    if (wm_size.size == 1) {
+        ret.add(FunctionItem(icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_size_default, subTitle = wm_size[0].split(": ")[1]))
+        ret.add(FunctionItem(icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_size_external, subTitle = wm_size[0].split(": ")[1]))
+    } else if (wm_size.size == 2) {
+        ret.add(FunctionItem(icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_size_default, subTitle = wm_size[0].split(": ")[1]))
+        ret.add(FunctionItem(icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_size_external, subTitle = wm_size[1].split(": ")[1]))
+    }
+    if (wm_density.size == 1) {
+        ret.add(FunctionItem(icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_density_default, subTitle = wm_density[0].split(": ")[1]))
+        ret.add(FunctionItem(icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_density_external, subTitle = wm_density[0].split(": ")[1]))
+    } else if (wm_density.size == 2) {
+        ret.add(FunctionItem(icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_density_default, subTitle = wm_density[0].split(": ")[1]))
+        ret.add(FunctionItem(icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_density_external, subTitle = wm_density[1].split(": ")[1]))
+    }
+    return ret
 }

@@ -24,7 +24,7 @@ import com.moling.micatoolkit.presentation.model.FunctionItem
 @Composable
 fun FunctionList(
     headerId: Int,
-    navController: NavHostController,
+    navController: NavHostController? = null,
     functionsList: List<FunctionItem>,
     headerChip:@Composable (ScalingLazyListItemScope.() -> Unit)? = null,
 ) {
@@ -48,7 +48,7 @@ fun FunctionList(
             FuncChip(
                 onClick = {
                     if (!it.onClickRoute.isNullOrEmpty()) {
-                        navController.navigate(it.onClickRoute) {
+                        requireNotNull(navController).navigate(it.onClickRoute) {
                             if (!it.onClickPopUpTo.isNullOrEmpty()) {
                                 popUpTo(it.onClickPopUpTo)
                             }
@@ -57,7 +57,7 @@ fun FunctionList(
                 },
                 onLongClick = {
                     if (!it.onLongClickRoute.isNullOrEmpty()) {
-                        navController.navigate(it.onLongClickRoute) {
+                        requireNotNull(navController).navigate(it.onLongClickRoute) {
                             if (!it.onLongClickPopUpTo.isNullOrEmpty()) {
                                 popUpTo(it.onLongClickPopUpTo)
                             }
@@ -79,9 +79,9 @@ fun FunctionList(
                             color = Color.White,
                             modifier = Modifier.padding(start = 5.dp)
                         )
-                        if (it.subTitleId != 0) {
+                        if (!it.subTitle.isNullOrEmpty()) {
                             Text(
-                                text = stringResource(id = it.subTitleId),
+                                text = it.subTitle,
                                 color = MaterialTheme.colors.onSurface,
                                 fontSize = 10.sp,
                                 modifier = Modifier.padding(start = 10.dp)

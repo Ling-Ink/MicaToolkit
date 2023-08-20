@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 class FunctionItem(
     icon: ImageVector,
     titleId: Int,
-    subTitleId: Int = 0,
+    subTitle: String? = null,
     onClickRoute: String? = null,
     onClickPopUpTo: String? = null,
     onLongClickRoute: String? = null,
@@ -13,7 +13,7 @@ class FunctionItem(
 ) {
     val icon: ImageVector
     val titleId: Int
-    val subTitleId: Int
+    val subTitle: String?
     val onClickRoute: String?
     val onClickPopUpTo: String?
     val onLongClickRoute: String?
@@ -22,7 +22,7 @@ class FunctionItem(
     init {
         this.icon = icon
         this.titleId = titleId
-        this.subTitleId = subTitleId
+        this.subTitle = subTitle
         this.onClickRoute = onClickRoute
         this.onClickPopUpTo = onClickPopUpTo
         this.onLongClickRoute = onLongClickRoute
