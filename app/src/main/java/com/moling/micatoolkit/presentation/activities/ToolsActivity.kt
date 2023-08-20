@@ -28,20 +28,15 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.items
 import com.moling.micatoolkit.R
-import com.moling.micatoolkit.presentation.AppNavRoute
-import com.moling.micatoolkit.presentation.FileSource
-import com.moling.micatoolkit.presentation.MENU_TOOLS
-import com.moling.micatoolkit.presentation.ToolsRoute
+import com.moling.micatoolkit.presentation.FUNC_TOOLS
 import com.moling.micatoolkit.presentation.model.Constants
-import com.moling.micatoolkit.presentation.model.MenuItem
+import com.moling.micatoolkit.presentation.model.FunctionItem
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.showToast
+import com.moling.micatoolkit.presentation.widgets.FunctionList
 import dadb.AdbKeyPair
 import dadb.Dadb
 import java.io.File
@@ -50,12 +45,12 @@ import java.net.ConnectException
 
 class ToolActivity : ComponentActivity()
 
-var menuListCon = mutableListOf<MenuItem>()
+var functionList = mutableListOf<FunctionItem>()
 
 @Composable
 fun InitializeMenuList() {
-    menuListCon.clear()
-    menuListCon.addAll(MENU_TOOLS())
+    functionList.clear()
+    functionList.addAll(FUNC_TOOLS())
 }
 
 @Composable
@@ -75,22 +70,16 @@ fun ToolAct(navController: NavHostController, host: String, port: Int) {
 @Composable
 fun ToolList(navController: NavHostController, host: String, port: Int) {
     var connectStatus by remember { mutableStateOf(0) }
-    val menuList = remember { mutableStateListOf<MenuItem>() }
+    val funcList = remember { mutableStateListOf<FunctionItem>() }
     connectStatus = adbConnect(host, port)
-    if (connectStatus == 1)
-        menuList.swapList(menuListCon)
-    ScalingLazyColumn(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        item {
-            ListHeader {
-                Text(
-                    text = stringResource(id = R.string.txt_toolsList),
-                    color = Color.White
-                )
-            }
-        }
-        item {
+    if (connectStatus == 1) {
+        funcList.swapList(functionList)
+    }
+    FunctionList(
+        headerId = R.string.txt_toolsList,
+        navController = navController,
+        functionsList = funcList,
+        headerChip = {
             Chip(
                 onClick = {  },
                 colors = ChipDefaults.secondaryChipColors(),
@@ -143,34 +132,7 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
                 }
             )
         }
-        if (connectStatus == 1) {
-            items(menuList) {
-                Chip(
-                    onClick = {
-                        if (it.route == ToolsRoute.TOOL_FILE) {
-                            navController.navigate("${AppNavRoute.ROUTE_FILE}/${FileSource.SOURCE_REMOTE}/NULL") {
-                                popUpTo(AppNavRoute.ROUTE_TOOL)
-                            }
-                        } else {
-                            navController.navigate("${AppNavRoute.ROUTE_DETAIL}/${it.route}/${it.labelId}") {
-                                popUpTo(AppNavRoute.ROUTE_TOOL)
-                            }
-                        }
-                              },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    modifier = Modifier.fillMaxWidth(),
-                    label = {
-                        Icon(imageVector = it.icon, contentDescription = "")
-                        Text(
-                            text = stringResource(id = it.labelId),
-                            color = Color.White,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                    }
-                )
-            }
-        }
-    }
+    )
 }
 
 private val ADB_PRIVATE_KEY_PATH = "${requireNotNull(Constants.filesDir).absolutePath}/adbkey"

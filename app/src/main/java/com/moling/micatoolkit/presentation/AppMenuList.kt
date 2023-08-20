@@ -8,6 +8,7 @@ import androidx.compose.material.icons.outlined.PermDeviceInformation
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.model.Constants
 import com.moling.micatoolkit.presentation.model.DetailItem
+import com.moling.micatoolkit.presentation.model.FunctionItem
 import com.moling.micatoolkit.presentation.model.MenuItem
 import com.moling.micatoolkit.presentation.utils.getDeviceAndroidBuild
 import com.moling.micatoolkit.presentation.utils.getDeviceAndroidId
@@ -18,27 +19,27 @@ import com.moling.micatoolkit.presentation.utils.getDeviceModel
 import com.moling.micatoolkit.presentation.utils.getScreenDensity
 import com.moling.micatoolkit.presentation.utils.getScreenSize
 
-fun MENU_TOOLS(): List<MenuItem> {
+fun FUNC_TOOLS(): List<FunctionItem> {
     return listOf(
-        MenuItem(
+        FunctionItem(
             icon = Icons.Outlined.PermDeviceInformation,
-            labelId = R.string.menu_deviceInfo,
-            route = ToolsRoute.TOOL_DEVICE
+            titleId = R.string.menu_deviceInfo,
+            onClickRoute = ToolsRoute.TOOL_DEVICE
         ),
-        MenuItem(
+        FunctionItem(
             icon = Icons.Outlined.FitScreen,
-            labelId = R.string.menu_screenInfo,
-            route = ToolsRoute.TOOL_SCREEN
+            titleId = R.string.menu_screenInfo,
+            onClickRoute = ToolsRoute.TOOL_SCREEN
         ),
-        MenuItem(
+        FunctionItem(
             icon = Icons.Outlined.Folder,
-            labelId = R.string.menu_fileList,
-            route = ToolsRoute.TOOL_FILE
+            titleId = R.string.menu_fileList,
+            onClickRoute = ToolsRoute.TOOL_FILE
         ),
-        MenuItem(
+        FunctionItem(
             icon = Icons.Outlined.GridView,
-            labelId = R.string.menu_appManager,
-            route = ToolsRoute.TOOL_APPS
+            titleId = R.string.menu_appManager,
+            onClickRoute = ToolsRoute.TOOL_APPS
         ),
     )
 }
