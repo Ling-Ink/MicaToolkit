@@ -38,7 +38,7 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.AppNavHost
 import com.moling.micatoolkit.presentation.AppNavRoute
-import com.moling.micatoolkit.presentation.model.Constants
+import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 
 class MainActivity : ComponentActivity() {

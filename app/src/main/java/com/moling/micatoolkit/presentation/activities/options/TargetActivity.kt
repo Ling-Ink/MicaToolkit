@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.activities
+package com.moling.micatoolkit.presentation.activities.options
 
 import android.widget.Toast
 import androidx.activity.ComponentActivity

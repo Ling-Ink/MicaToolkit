@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.model
+package com.moling.micatoolkit.presentation
 
 import android.content.SharedPreferences
 import dadb.Dadb

@@ -22,4 +22,6 @@
     <string name="detail_screen_density_external">当前屏幕 Dpi</string>
     <string name="menu_fileList">文件管理</string>
     <string name="menu_appManager">应用管理</string>
+    <string name="detail_appList">应用列表</string>
+    <string name="detail_appInstall">应用安装</string>
 </resources>

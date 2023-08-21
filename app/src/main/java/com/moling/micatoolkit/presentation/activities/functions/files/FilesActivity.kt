@@ -1,8 +1,7 @@
-package com.moling.micatoolkit.presentation.activities
+package com.moling.micatoolkit.presentation.activities.functions.files
 
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,9 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.*
 import com.moling.micatoolkit.presentation.FileSource
-import com.moling.micatoolkit.presentation.model.Constants
-import com.moling.micatoolkit.presentation.model.FileDisplay
-import com.moling.micatoolkit.presentation.model.FileItem
+import com.moling.micatoolkit.presentation.activities.options.swapList
+import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.fileUtils.LocalFileUtils
 import com.moling.micatoolkit.presentation.utils.fileUtils.RemoteFileUtils
@@ -100,7 +98,6 @@ fun changeParent(fileSource: String) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FilesAct(fileSource: String, browserNote: String) {
     val fileListRem = remember { mutableStateListOf<FileDisplay>() }
@@ -128,7 +125,6 @@ fun FilesAct(fileSource: String, browserNote: String) {
                 }
             }
             items(fileListRem) {
-                val l = it
                 FuncChip(
                     onClick = {
                         when (it.route) {

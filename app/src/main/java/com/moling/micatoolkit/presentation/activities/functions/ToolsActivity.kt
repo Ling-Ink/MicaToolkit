@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.activities
+package com.moling.micatoolkit.presentation.activities.functions
 
 import android.util.Log
 import android.widget.Toast
@@ -32,8 +32,8 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.FUNC_TOOLS
-import com.moling.micatoolkit.presentation.model.Constants
-import com.moling.micatoolkit.presentation.model.FunctionItem
+import com.moling.micatoolkit.presentation.activities.options.swapList
+import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.showToast
 import com.moling.micatoolkit.presentation.widgets.FunctionList
@@ -71,6 +71,11 @@ fun ToolAct(navController: NavHostController, host: String, port: Int) {
 fun ToolList(navController: NavHostController, host: String, port: Int) {
     var connectStatus by remember { mutableStateOf(0) }
     val funcList = remember { mutableStateListOf<FunctionItem>() }
+    if (connectStatus == 0) {
+        connectStatus = adbConnect(host, port)
+        if (connectStatus == 1)
+            funcList.swapList(functionList)
+    }
     FunctionList(
         headerId = R.string.txt_toolsList,
         navController = navController,
@@ -105,13 +110,6 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
             )
         }
     )
-    Thread {
-        if (connectStatus == 0) {
-            connectStatus = adbConnect(host, port)
-            if (connectStatus == 1)
-                funcList.swapList(functionList)
-        }
-    }.start()
 }
 
 @Composable
@@ -123,28 +121,15 @@ fun HeaderText(id: Int) {
     )
 }
 
-private val ADB_PRIVATE_KEY_PATH = "${requireNotNull(Constants.filesDir).absolutePath}/adbkey"
-private val ADB_PUBLIC_KEY_PATH = "${requireNotNull(Constants.filesDir).absolutePath}/adbkey.pub"
 fun adbConnect(host: String, port: Int): Int {
     if (Constants.adb != null)
         requireNotNull(Constants.adb).close()
-    val keyPair: AdbKeyPair
-    try {
-        keyPair = AdbKeyPair.read(
-            File(ADB_PRIVATE_KEY_PATH),
-            File(ADB_PUBLIC_KEY_PATH)
-        )
-    } catch (e: FileNotFoundException) {
-        AdbKeyPair.generate(
-            File(ADB_PRIVATE_KEY_PATH),
-            File(ADB_PUBLIC_KEY_PATH)
-        )
-        return adbConnect(host, port)
-    }
+    val keyPair: AdbKeyPair = getKeyPair()
     Log.d("MICA", "ADB Connecting to ${host}:${port}")
-    Constants.adb = Dadb.create(host, port, keyPair)
     var result = 1
+
     val thread = Thread {
+        Constants.adb = Dadb.create(host, port, keyPair)
         try {
             Log.d("MICA", requireNotNull(Constants.adb).shell("whoami").toString())
         } catch (e: ConnectException) {
@@ -156,4 +141,22 @@ fun adbConnect(host: String, port: Int): Int {
     thread.join()
 
     return result
+}
+
+fun getKeyPair(): AdbKeyPair {
+    val ADB_KEY_PATH = requireNotNull(Constants.filesDir).absolutePath
+    val keyPair: AdbKeyPair
+    return try {
+        keyPair = AdbKeyPair.read(
+            File("${ADB_KEY_PATH}/adbkey"),
+            File("${ADB_KEY_PATH}/adbkey.pub")
+        )
+        keyPair
+    } catch (e: FileNotFoundException) {
+        AdbKeyPair.generate(
+            File("${ADB_KEY_PATH}/adbkey"),
+            File("${ADB_KEY_PATH}/adbkey.pub")
+        )
+        getKeyPair()
+    }
 }

@@ -19,7 +19,7 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListItemScope
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
-import com.moling.micatoolkit.presentation.model.FunctionItem
+import com.moling.micatoolkit.presentation.activities.functions.FunctionItem
 
 @Composable
 fun FunctionList(
@@ -74,14 +74,29 @@ fun FunctionList(
                     Column(verticalArrangement = Arrangement.Center, modifier = Modifier
                         .fillParentMaxHeight()
                         .padding(start = 10.dp)) {
-                        Text(
-                            text = stringResource(id = it.titleId),
-                            color = Color.White,
-                            modifier = Modifier.padding(start = 5.dp)
-                        )
+                        if (!it.title.isNullOrEmpty()) {
+                            Text(
+                                text = it.title,
+                                color = Color.White,
+                                modifier = Modifier.padding(start = 5.dp)
+                            )
+                        } else if (it.titleId != null) {
+                            Text(
+                                text = stringResource(id = it.titleId),
+                                color = Color.White,
+                                modifier = Modifier.padding(start = 5.dp)
+                            )
+                        }
                         if (!it.subTitle.isNullOrEmpty()) {
                             Text(
                                 text = it.subTitle,
+                                color = MaterialTheme.colors.onSurface,
+                                fontSize = 10.sp,
+                                modifier = Modifier.padding(start = 10.dp)
+                            )
+                        } else if (it.subTitleId != null) {
+                            Text(
+                                text = stringResource(id = it.subTitleId),
                                 color = MaterialTheme.colors.onSurface,
                                 fontSize = 10.sp,
                                 modifier = Modifier.padding(start = 10.dp)

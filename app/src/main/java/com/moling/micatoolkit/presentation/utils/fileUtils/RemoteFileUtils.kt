@@ -2,8 +2,8 @@ package com.moling.micatoolkit.presentation.utils.fileUtils
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
-import com.moling.micatoolkit.presentation.model.Constants
-import com.moling.micatoolkit.presentation.model.FileItem
+import com.moling.micatoolkit.presentation.Constants
+import com.moling.micatoolkit.presentation.activities.functions.files.FileItem
 import com.moling.micatoolkit.presentation.utils.execShell
 import com.moling.micatoolkit.presentation.utils.getFileType
 

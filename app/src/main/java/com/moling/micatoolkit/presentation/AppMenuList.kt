@@ -9,12 +9,12 @@ import androidx.compose.material.icons.outlined.FitScreen
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.GridView
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.InstallMobile
 import androidx.compose.material.icons.outlined.PermDeviceInformation
 import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material.icons.outlined.Watch
 import com.moling.micatoolkit.R
-import com.moling.micatoolkit.presentation.model.Constants
-import com.moling.micatoolkit.presentation.model.FunctionItem
+import com.moling.micatoolkit.presentation.activities.functions.FunctionItem
 import com.moling.micatoolkit.presentation.utils.execShell
 
 fun AdbExec(command: String): String {
@@ -36,7 +36,7 @@ fun FUNC_TOOLS(): List<FunctionItem> {
         FunctionItem(
             icon = Icons.Outlined.Folder,
             titleId = R.string.menu_fileList,
-            onClickRoute = "${AppNavRoute.ROUTE_FILE}/${FileSource.SOURCE_REMOTE}/NULL"
+            onClickRoute = "${ToolsRoute.TOOL_FILE}/${FileSource.SOURCE_REMOTE}/NULL"
         ),
         FunctionItem(
             icon = Icons.Outlined.GridView,
@@ -86,18 +86,77 @@ fun FUNC_SCREEN(): List<FunctionItem> {
     val wm_density = AdbExec("wm density").split("\n")
     val ret = mutableListOf<FunctionItem>()
     if (wm_size.size == 1) {
-        ret.add(FunctionItem(icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_size_default, subTitle = wm_size[0].split(": ")[1]))
-        ret.add(FunctionItem(icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_size_external, subTitle = wm_size[0].split(": ")[1]))
+        ret.add(
+            FunctionItem(
+            icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_size_default,
+            subTitle = wm_size[0].split(": ")[1])
+        )
+        ret.add(
+            FunctionItem(
+            icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_size_external,
+            subTitle = wm_size[0].split(": ")[1], onClickRoute = "${AppNavRoute.ROUTE_DETAIL}/${DetailRoute.DETAIL_SCREEN_SIZE}/NULL")
+        )
     } else if (wm_size.size == 2) {
-        ret.add(FunctionItem(icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_size_default, subTitle = wm_size[0].split(": ")[1]))
-        ret.add(FunctionItem(icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_size_external, subTitle = wm_size[1].split(": ")[1]))
+        ret.add(
+            FunctionItem(
+            icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_size_default,
+            subTitle = wm_size[0].split(": ")[1])
+        )
+        ret.add(
+            FunctionItem(
+            icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_size_external,
+            subTitle = wm_size[1].split(": ")[1], onClickRoute = "${AppNavRoute.ROUTE_DETAIL}/${DetailRoute.DETAIL_SCREEN_SIZE}/NULL")
+        )
     }
     if (wm_density.size == 1) {
-        ret.add(FunctionItem(icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_density_default, subTitle = wm_density[0].split(": ")[1]))
-        ret.add(FunctionItem(icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_density_external, subTitle = wm_density[0].split(": ")[1]))
+        ret.add(
+            FunctionItem(
+            icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_density_default,
+            subTitle = wm_density[0].split(": ")[1])
+        )
+        ret.add(
+            FunctionItem(
+            icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_density_external,
+            subTitle = wm_density[0].split(": ")[1], onClickRoute = "${AppNavRoute.ROUTE_DETAIL}/${DetailRoute.DETAIL_SCREEN_DENSITY}/NULL")
+        )
     } else if (wm_density.size == 2) {
-        ret.add(FunctionItem(icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_density_default, subTitle = wm_density[0].split(": ")[1]))
-        ret.add(FunctionItem(icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_density_external, subTitle = wm_density[1].split(": ")[1]))
+        ret.add(
+            FunctionItem(
+            icon = Icons.Outlined.AspectRatio, titleId = R.string.detail_screen_density_default,
+            subTitle = wm_density[0].split(": ")[1])
+        )
+        ret.add(
+            FunctionItem(
+            icon = Icons.Outlined.Edit, titleId = R.string.detail_screen_density_external,
+            subTitle = wm_density[1].split(": ")[1], onClickRoute = "${AppNavRoute.ROUTE_DETAIL}/${DetailRoute.DETAIL_SCREEN_DENSITY}/NULL")
+        )
     }
     return ret
 }
+
+fun FUNC_APPMGR(): List<FunctionItem> {
+    return listOf(
+        FunctionItem(
+            icon = Icons.Outlined.GridView,
+            titleId = R.string.detail_appList,
+            onClickRoute = "${AppNavRoute.ROUTE_DETAIL}/${DetailRoute.DETAIL_APP_LIST}/${R.string.detail_appList}"
+        ),
+        FunctionItem(
+            icon = Icons.Outlined.InstallMobile,
+            titleId = R.string.detail_appInstall,
+            onClickRoute = "${AppNavRoute.ROUTE_DETAIL}/${DetailRoute.DETAIL_APP_INSTALL}/${R.string.detail_appInstall}"
+        ),
+    )
+}
+
+fun DETAIL_APP_LIST(): List<FunctionItem> {
+    val packages = AdbExec("pm list packages -3").split("\n")
+    return packages.map {
+        FunctionItem(
+            icon = Icons.Outlined.Android,
+            title = it.replace("package:", "")
+        )
+    }
+}
+
+

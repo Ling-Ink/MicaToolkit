@@ -1,8 +1,8 @@
 package com.moling.micatoolkit.presentation.utils.fileUtils
 
 import androidx.compose.runtime.mutableStateListOf
-import com.moling.micatoolkit.presentation.model.Constants
-import com.moling.micatoolkit.presentation.model.FileItem
+import com.moling.micatoolkit.presentation.Constants
+import com.moling.micatoolkit.presentation.activities.functions.files.FileItem
 import com.moling.micatoolkit.presentation.utils.getFileType
 import java.io.File
 

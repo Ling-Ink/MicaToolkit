@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.model
+package com.moling.micatoolkit.presentation.activities.functions.files
 
 class FileItem(fileName: String, fileType: Int) {
     val fileName: String

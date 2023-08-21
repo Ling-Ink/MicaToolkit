@@ -6,13 +6,13 @@ import androidx.navigation.navArgument
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.moling.micatoolkit.presentation.activities.DetailAct
-import com.moling.micatoolkit.presentation.activities.FilesAct
+import com.moling.micatoolkit.presentation.activities.functions.DetailAct
+import com.moling.micatoolkit.presentation.activities.functions.files.FilesAct
 import com.moling.micatoolkit.presentation.activities.HelpAct
 import com.moling.micatoolkit.presentation.activities.MainAct
-import com.moling.micatoolkit.presentation.activities.PortAct
-import com.moling.micatoolkit.presentation.activities.TargetAct
-import com.moling.micatoolkit.presentation.activities.ToolAct
+import com.moling.micatoolkit.presentation.activities.options.PortAct
+import com.moling.micatoolkit.presentation.activities.options.TargetAct
+import com.moling.micatoolkit.presentation.activities.functions.ToolAct
 
 @Composable
 fun AppNavHost() {
@@ -64,11 +64,11 @@ fun AppNavHost() {
             val args = requireNotNull(it.arguments)
             val type = requireNotNull(args.getString(AppNavParam.PARAM_TYPE))
             val title = requireNotNull(args.getInt(AppNavParam.PARAM_TITLE))
-            DetailAct(type, title)
+            DetailAct(navController, type, title)
         }
 
         composable(
-            "${AppNavRoute.ROUTE_FILE}/{${AppNavParam.PARAM_TYPE}}/{${AppNavParam.PARAM_NOTE}}",
+            "${ToolsRoute.TOOL_FILE}/{${AppNavParam.PARAM_TYPE}}/{${AppNavParam.PARAM_NOTE}}",
             arguments = listOf(
                 navArgument(AppNavParam.PARAM_TYPE) { type = NavType.StringType },
                 navArgument(AppNavParam.PARAM_NOTE) { type = NavType.StringType }
@@ -87,9 +87,9 @@ object AppNavRoute {
     const val ROUTE_TARGET = "target"
     const val ROUTE_PORT = "port"
     const val ROUTE_HELP = "help"
+
     const val ROUTE_TOOL = "tool"
     const val ROUTE_DETAIL = "detail"
-    const val ROUTE_FILE = "file"
 }
 
 object AppNavParam {
@@ -110,6 +110,8 @@ object ToolsRoute {
 object DetailRoute {
     const val DETAIL_SCREEN_SIZE = "screenSize"
     const val DETAIL_SCREEN_DENSITY = "screenDensity"
+    const val DETAIL_APP_LIST = "appList"
+    const val DETAIL_APP_INSTALL = "appInstall"
 }
 
 object FileSource {

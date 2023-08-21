@@ -2,7 +2,7 @@ package com.moling.micatoolkit.presentation.utils
 
 import android.widget.Toast
 import com.moling.micatoolkit.presentation.activities.MainActivity
-import com.moling.micatoolkit.presentation.model.Constants
+import com.moling.micatoolkit.presentation.Constants
 
 fun String.showToast(duration: Int = Toast.LENGTH_SHORT){
     MainActivity .toast.setText(this)
