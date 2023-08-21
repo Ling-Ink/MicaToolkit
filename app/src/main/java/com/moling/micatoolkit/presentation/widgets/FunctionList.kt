@@ -19,7 +19,6 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListItemScope
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
-import com.moling.micatoolkit.presentation.activities.functions.FunctionItem
 
 @Composable
 fun FunctionList(
@@ -46,25 +45,9 @@ fun FunctionList(
         }
         items(functionsList) {
             FuncChip(
-                onClick = {
-                    if (!it.onClickRoute.isNullOrEmpty()) {
-                        requireNotNull(navController).navigate(it.onClickRoute) {
-                            if (!it.onClickPopUpTo.isNullOrEmpty()) {
-                                popUpTo(it.onClickPopUpTo)
-                            }
-                        }
-                    }
-                },
-                onLongClick = {
-                    if (!it.onLongClickRoute.isNullOrEmpty()) {
-                        requireNotNull(navController).navigate(it.onLongClickRoute) {
-                            if (!it.onLongClickPopUpTo.isNullOrEmpty()) {
-                                popUpTo(it.onLongClickPopUpTo)
-                            }
-                        }
-                    }
-                },
-                colors = ChipDefaults.secondaryChipColors(),
+                onClick = { it.onClick.invoke(navController) },
+                onLongClick = { it.onLongClick.invoke(navController) },
+                colors = ChipDefaults.secondaryChipColors(backgroundColor = it.color?: MaterialTheme.colors.surface),
                 modifier = Modifier.fillMaxWidth(),
                 label = {
                     Column(verticalArrangement = Arrangement.Center, modifier = Modifier

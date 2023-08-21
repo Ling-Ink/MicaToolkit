@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FileCopy
+import androidx.compose.material.icons.outlined.Android
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.Image
+import androidx.compose.material.icons.outlined.UploadFile
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -20,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.wear.compose.material.*
 import com.moling.micatoolkit.presentation.FileSource
 import com.moling.micatoolkit.presentation.activities.options.swapList
@@ -37,7 +40,6 @@ var localFileUtil: LocalFileUtils? = null
 
 fun loadFiles(fileSource: String): List<FileDisplay> {
     val fileItem = mutableListOf<FileDisplay>()
-    fileItem.add(FileDisplay(Icons.Outlined.ArrowBack, "..", "", ".."))
 
     val dirs = mutableListOf<FileItem>()
     if (fileSource == FileSource.SOURCE_REMOTE)
@@ -52,9 +54,10 @@ fun loadFiles(fileSource: String): List<FileDisplay> {
                     Constants.TYPE_DIRECTORY -> Icons.Outlined.Folder
                     Constants.TYPE_IMAGE -> Icons.Outlined.Image
                     Constants.TYPE_NO_PERM -> Icons.Outlined.Warning
+                    Constants.TYPE_APK -> Icons.Outlined.Android
                     else -> Icons.Filled.FileCopy
                 },
-                fileItem.fileName, "",
+                fileItem.fileName,
                 if (fileItem.fileType == Constants.TYPE_DIRECTORY) fileItem.fileName else null
             )
         }
@@ -99,7 +102,7 @@ fun changeParent(fileSource: String) {
 }
 
 @Composable
-fun FilesAct(fileSource: String, browserNote: String) {
+fun FilesAct(navController: NavHostController, fileSource: String, browserNote: String, callbackRoute: String) {
     val fileListRem = remember { mutableStateListOf<FileDisplay>() }
     val folderLocation = remember { mutableStateOf("") }
 
@@ -124,26 +127,61 @@ fun FilesAct(fileSource: String, browserNote: String) {
                     )
                 }
             }
+            item {
+                Chip(
+                    onClick = { /* IGNORE */ },
+                    colors = ChipDefaults.secondaryChipColors(backgroundColor = Color.Transparent),
+                    label = {
+                        Chip(
+                            onClick = {
+                                changeParent(fileSource)
+
+                                fileListRem.swapList(loadFiles(fileSource))
+                                if (browserNote == Constants.NULL_PARAM_PLACEHOLDER) folderLocation.value = getLoc(fileSource) else folderLocation.value = browserNote + "\n" + getLoc(fileSource)
+                            },
+                            colors = ChipDefaults.secondaryChipColors(),
+                            modifier = Modifier.padding(end = 5.dp),
+                            label = {
+                                Column(verticalArrangement = Arrangement.Center, modifier = Modifier
+                                    .fillParentMaxHeight()) {
+                                    Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "")
+                                }
+                            }
+                        )
+                        Chip(
+                            onClick = { /*TODO*/ },
+                            colors = ChipDefaults.secondaryChipColors(),
+                            modifier = Modifier.padding(start = 5.dp),
+                            label = {
+                                Column(verticalArrangement = Arrangement.Center, modifier = Modifier
+                                    .fillParentMaxHeight()) {
+                                    Icon(imageVector = Icons.Outlined.UploadFile, contentDescription = "")
+                                }
+                            }
+                        )
+                    }
+                )
+
+            }
             items(fileListRem) {
                 FuncChip(
                     onClick = {
                         when (it.route) {
-                            ".." -> {
-                                changeParent(fileSource)
+                            null -> {
+                                if (callbackRoute != Constants.NULL_PARAM_PLACEHOLDER) {
 
-                                fileListRem.swapList(loadFiles(fileSource))
-                                if (browserNote == "NULL") folderLocation.value = getLoc(fileSource) else folderLocation.value = browserNote + "\n" + getLoc(fileSource)
+                                }
                             }
-                            null -> {/* Do Nothing */}
                             else -> {
                                 changeDir(fileSource, it.route)
 
                                 fileListRem.swapList(loadFiles(fileSource))
-                                if (browserNote == "NULL") folderLocation.value = getLoc(fileSource) else folderLocation.value = browserNote + "\n" + getLoc(fileSource)
+                                if (browserNote == Constants.NULL_PARAM_PLACEHOLDER) folderLocation.value = getLoc(fileSource) else folderLocation.value = browserNote + "\n" + getLoc(fileSource)
                             }
                         }
                     },
                     onLongClick = {
+
                         "Long Click".showToast(Toast.LENGTH_SHORT)
                     },
                     colors = ChipDefaults.secondaryChipColors(),

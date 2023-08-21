@@ -11,6 +11,7 @@ import com.moling.micatoolkit.presentation.FUNC_SCREEN
 import com.moling.micatoolkit.presentation.ToolsRoute
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.fileUtils.RemoteFileUtils
+import com.moling.micatoolkit.presentation.widgets.FunctionItem
 import com.moling.micatoolkit.presentation.widgets.FunctionList
 
 class DetailActivity : ComponentActivity()

@@ -15,5 +15,7 @@ class Constants {
         const val TYPE_DIRECTORY = 1
         const val TYPE_APK = 2
         const val TYPE_IMAGE = 3
+
+        const val NULL_PARAM_PLACEHOLDER = "NULL"
     }
 }

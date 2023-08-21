@@ -36,6 +36,7 @@ import com.moling.micatoolkit.presentation.activities.options.swapList
 import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.showToast
+import com.moling.micatoolkit.presentation.widgets.FunctionItem
 import com.moling.micatoolkit.presentation.widgets.FunctionList
 import dadb.AdbKeyPair
 import dadb.Dadb
@@ -71,11 +72,6 @@ fun ToolAct(navController: NavHostController, host: String, port: Int) {
 fun ToolList(navController: NavHostController, host: String, port: Int) {
     var connectStatus by remember { mutableStateOf(0) }
     val funcList = remember { mutableStateListOf<FunctionItem>() }
-    if (connectStatus == 0) {
-        connectStatus = adbConnect(host, port)
-        if (connectStatus == 1)
-            funcList.swapList(functionList)
-    }
     FunctionList(
         headerId = R.string.txt_toolsList,
         navController = navController,
@@ -110,6 +106,11 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
             )
         }
     )
+    if (connectStatus == 0) {
+        connectStatus = adbConnect(host, port)
+        if (connectStatus == 1)
+            funcList.swapList(functionList)
+    }
 }
 
 @Composable

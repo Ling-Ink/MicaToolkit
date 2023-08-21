@@ -68,16 +68,18 @@ fun AppNavHost() {
         }
 
         composable(
-            "${ToolsRoute.TOOL_FILE}/{${AppNavParam.PARAM_TYPE}}/{${AppNavParam.PARAM_NOTE}}",
+            "${ToolsRoute.TOOL_FILE}/{${AppNavParam.PARAM_TYPE}}/{${AppNavParam.PARAM_NOTE}}/{${AppNavParam.PARAM_CALLBACK}}",
             arguments = listOf(
                 navArgument(AppNavParam.PARAM_TYPE) { type = NavType.StringType },
-                navArgument(AppNavParam.PARAM_NOTE) { type = NavType.StringType }
+                navArgument(AppNavParam.PARAM_NOTE) { type = NavType.StringType },
+                navArgument(AppNavParam.PARAM_CALLBACK) { type = NavType.StringType }
             )
         ) {
             val args = requireNotNull(it.arguments)
             val type = requireNotNull(args.getString(AppNavParam.PARAM_TYPE))
             val note = requireNotNull(args.getString(AppNavParam.PARAM_NOTE))
-            FilesAct(type, note)
+            val callback = requireNotNull(args.getString(AppNavParam.PARAM_CALLBACK))
+            FilesAct(navController, type, note, callback)
         }
     }
 }
@@ -98,6 +100,7 @@ object AppNavParam {
     const val PARAM_TYPE = "type"
     const val PARAM_TITLE = "title"
     const val PARAM_NOTE = "note"
+    const val PARAM_CALLBACK = "callback"
 }
 
 object ToolsRoute {
