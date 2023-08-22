@@ -36,8 +36,8 @@ import com.moling.micatoolkit.presentation.activities.options.swapList
 import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.showToast
-import com.moling.micatoolkit.presentation.widgets.FunctionItem
-import com.moling.micatoolkit.presentation.widgets.FunctionList
+import com.moling.micatoolkit.presentation.widgets.func.FunctionItem
+import com.moling.micatoolkit.presentation.widgets.func.FunctionList
 import dadb.AdbKeyPair
 import dadb.Dadb
 import java.io.File

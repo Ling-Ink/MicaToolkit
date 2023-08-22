@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.utils.execShell
-import com.moling.micatoolkit.presentation.widgets.FunctionItem
+import com.moling.micatoolkit.presentation.widgets.func.FunctionItem
 
 fun AdbExec(command: String): String {
     return requireNotNull(Constants.adb).execShell(command).output
@@ -40,7 +40,9 @@ fun FUNC_TOOLS(): List<FunctionItem> {
         FunctionItem(
             icon = Icons.Outlined.Folder,
             titleId = R.string.menu_fileList,
-            onClick = { requireNotNull(it).navigate("${ToolsRoute.TOOL_FILE}/${FileSource.SOURCE_REMOTE}/${Constants.NULL_PARAM_PLACEHOLDER}/${Constants.NULL_PARAM_PLACEHOLDER}") },
+            onClick = {
+                requireNotNull(it).navigate("${ToolsRoute.TOOL_FILE}/${FileSource.SOURCE_REMOTE}/${Constants.NULL_PARAM_PLACEHOLDER}/${FileFunc.FUNC_TYPE_BROWSE}")
+            },
             onLongClick = { /* IGNORE */ }
         ),
         FunctionItem(

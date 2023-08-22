@@ -7,12 +7,13 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.moling.micatoolkit.presentation.activities.functions.DetailAct
-import com.moling.micatoolkit.presentation.activities.functions.files.FilesAct
+import com.moling.micatoolkit.presentation.activities.functions.FilesAct
 import com.moling.micatoolkit.presentation.activities.HelpAct
 import com.moling.micatoolkit.presentation.activities.MainAct
 import com.moling.micatoolkit.presentation.activities.options.PortAct
 import com.moling.micatoolkit.presentation.activities.options.TargetAct
 import com.moling.micatoolkit.presentation.activities.functions.ToolAct
+import com.moling.micatoolkit.presentation.activities.utils.UploadAct
 
 @Composable
 fun AppNavHost() {
@@ -68,18 +69,29 @@ fun AppNavHost() {
         }
 
         composable(
-            "${ToolsRoute.TOOL_FILE}/{${AppNavParam.PARAM_TYPE}}/{${AppNavParam.PARAM_NOTE}}/{${AppNavParam.PARAM_CALLBACK}}",
+            "${ToolsRoute.TOOL_FILE}/{${AppNavParam.PARAM_SOURCE}}/{${AppNavParam.PARAM_PATH}}/{${AppNavParam.PARAM_FUNC}}",
             arguments = listOf(
-                navArgument(AppNavParam.PARAM_TYPE) { type = NavType.StringType },
-                navArgument(AppNavParam.PARAM_NOTE) { type = NavType.StringType },
-                navArgument(AppNavParam.PARAM_CALLBACK) { type = NavType.StringType }
+                navArgument(AppNavParam.PARAM_SOURCE) { type = NavType.StringType },
+                navArgument(AppNavParam.PARAM_PATH) { type = NavType.StringType },
+                navArgument(AppNavParam.PARAM_FUNC) { type = NavType.StringType },
             )
         ) {
             val args = requireNotNull(it.arguments)
-            val type = requireNotNull(args.getString(AppNavParam.PARAM_TYPE))
-            val note = requireNotNull(args.getString(AppNavParam.PARAM_NOTE))
-            val callback = requireNotNull(args.getString(AppNavParam.PARAM_CALLBACK))
-            FilesAct(navController, type, note, callback)
+            val source = requireNotNull(args.getString(AppNavParam.PARAM_SOURCE))
+            val path = requireNotNull(args.getString(AppNavParam.PARAM_PATH))
+            val func = requireNotNull(args.getString(AppNavParam.PARAM_FUNC))
+            if (path == Constants.NULL_PARAM_PLACEHOLDER) FilesAct(navController, source, func) else FilesAct(navController, source, func, path)
+        }
+
+        composable(
+            "${UtilsRoute.UTIL_UPLOAD}/{${AppNavParam.PARAM_PATH}}",
+            arguments = listOf(
+                navArgument(AppNavParam.PARAM_PATH) { type = NavType.StringType }
+            )
+        ) {
+            val args = requireNotNull(it.arguments)
+            val path = requireNotNull(args.getString(AppNavParam.PARAM_PATH))
+            UploadAct(navController, path)
         }
     }
 }
@@ -99,8 +111,9 @@ object AppNavParam {
     const val PARAM_PORT = "port"
     const val PARAM_TYPE = "type"
     const val PARAM_TITLE = "title"
-    const val PARAM_NOTE = "note"
-    const val PARAM_CALLBACK = "callback"
+    const val PARAM_SOURCE = "source"
+    const val PARAM_PATH = "path"
+    const val PARAM_FUNC = "func"
 }
 
 object ToolsRoute {
@@ -117,7 +130,16 @@ object DetailRoute {
     const val DETAIL_APP_INSTALL = "appInstall"
 }
 
+object UtilsRoute {
+    const val UTIL_UPLOAD = "upload"
+}
+
 object FileSource {
     const val SOURCE_LOCAL = "local"
     const val SOURCE_REMOTE = "remote"
+}
+
+object FileFunc {
+    const val FUNC_TYPE_BROWSE = "browse"
+    const val FUNC_TYPE_UPLOAD = "upload"
 }

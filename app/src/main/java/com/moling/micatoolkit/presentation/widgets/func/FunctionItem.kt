@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.widgets
+package com.moling.micatoolkit.presentation.widgets.func
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector

@@ -25,4 +25,5 @@
     <string name="detail_appList">应用列表</string>
     <string name="detail_appInstall">应用安装</string>
     <string name="file_upload">上传文件</string>
+    <string name="txt_selectFile">选择文件...</string>
 </resources>

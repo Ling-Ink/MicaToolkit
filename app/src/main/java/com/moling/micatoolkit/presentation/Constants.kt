@@ -9,6 +9,8 @@ class Constants {
         var SharedPreferences: SharedPreferences? = null
         var adb: Dadb? = null
         var filesDir: File? = null
+        var host: String = ""
+        var port: Int = 0
 
         const val TYPE_NO_PERM = -1
         const val TYPE_OTHER = 0
@@ -17,5 +19,7 @@ class Constants {
         const val TYPE_IMAGE = 3
 
         const val NULL_PARAM_PLACEHOLDER = "NULL"
+
+        var uploadDstPath = ""
     }
 }

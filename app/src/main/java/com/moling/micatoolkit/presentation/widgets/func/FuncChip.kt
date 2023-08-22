@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.widgets
+package com.moling.micatoolkit.presentation.widgets.func
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.border

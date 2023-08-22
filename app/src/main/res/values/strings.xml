@@ -27,6 +27,7 @@
     <string name="detail_appList">App List</string>
     <string name="detail_appInstall">App Install</string>
     <string name="file_upload">Upload File</string>
+    <string name="txt_selectFile">Select File...</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

@@ -22,6 +22,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.AppNavRoute
+import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.activities.IconButton
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 
@@ -73,6 +74,8 @@ fun PortAct(navController: NavHostController, host: String) {
                             } else if (port.toInt() !in 1..65535) {
                                 fieldError = true
                             } else {
+                                Constants.host = host
+                                Constants.port = port.toInt()
                                 navController.navigate("${AppNavRoute.ROUTE_TOOL}/${host}/${port.toInt()}") {
                                     popUpTo(AppNavRoute.ROUTE_MAIN)
                                 }

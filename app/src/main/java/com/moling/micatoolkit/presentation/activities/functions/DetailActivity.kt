@@ -10,14 +10,12 @@ import com.moling.micatoolkit.presentation.FUNC_DEVICE
 import com.moling.micatoolkit.presentation.FUNC_SCREEN
 import com.moling.micatoolkit.presentation.ToolsRoute
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
-import com.moling.micatoolkit.presentation.utils.fileUtils.RemoteFileUtils
-import com.moling.micatoolkit.presentation.widgets.FunctionItem
-import com.moling.micatoolkit.presentation.widgets.FunctionList
+import com.moling.micatoolkit.presentation.widgets.func.FunctionItem
+import com.moling.micatoolkit.presentation.widgets.func.FunctionList
 
 class DetailActivity : ComponentActivity()
 
 var functionsList = mutableListOf<FunctionItem>()
-var file = RemoteFileUtils()
 
 @Composable
 fun InitializeDetails(detailType: String) {
@@ -33,7 +31,6 @@ fun InitializeDetails(detailType: String) {
 
 @Composable
 fun DetailAct(navController: NavHostController, detailType: String, titleId: Int) {
-    file = RemoteFileUtils()
     MicaToolkitTheme {
         FunctionList(
             headerId = titleId,
