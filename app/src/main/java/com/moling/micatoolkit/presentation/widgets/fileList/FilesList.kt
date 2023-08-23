@@ -25,6 +25,7 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.moling.micatoolkit.presentation.Constants
+import com.moling.micatoolkit.presentation.navigator.navToFileUploadFromTarget
 import com.moling.micatoolkit.presentation.utils.showToast
 import com.moling.micatoolkit.presentation.widgets.functionList.FuncChip
 
@@ -59,7 +60,7 @@ fun FileList(
                     }
                     if (isRemoteMode) {
                         CreateFolderChip()
-                        UploadChip(navController)
+                        UploadChip(navController, location)
                     }
                 }
             )
@@ -123,10 +124,11 @@ fun CreateFolderChip() {
 @Composable
 fun UploadChip(
     navController: NavController,
+    location: String
 ) {
     Chip(
         onClick = {
-            /* TODO */
+            navToFileUploadFromTarget(navController, location)
         },
         colors = ChipDefaults.secondaryChipColors(),
         modifier = Modifier.padding(start = 5.dp),

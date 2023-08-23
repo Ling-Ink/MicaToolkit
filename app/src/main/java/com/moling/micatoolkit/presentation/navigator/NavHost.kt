@@ -9,6 +9,7 @@ import com.moling.micatoolkit.presentation.activities.functionActs.PortAct
 import com.moling.micatoolkit.presentation.activities.functionActs.StartAct
 import com.moling.micatoolkit.presentation.activities.functionActs.TargetAct
 import com.moling.micatoolkit.presentation.activities.functionActs.ToolAct
+import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.UploadFileAct
 import com.moling.micatoolkit.presentation.activities.functionActs.editorAct.ScreenEditorAct
 import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.FilesAct
 
@@ -26,6 +27,8 @@ fun NavHost() {
         composable(NavRoute.ROUTE_FILE) { FilesAct(navController = navController) }
 
         composable(NavRoute.EDITOR_SCREEN_SIZE) { ScreenEditorAct(navController = navController) }
+
+        composable(NavRoute.UTIL_FILE_UPLOAD) { UploadFileAct(navController = navController) }
     }
 }
 
@@ -46,4 +49,6 @@ object NavRoute {
     const val DETAIL_APP_LIST = "appList"
 
     const val EDITOR_SCREEN_SIZE = "_ScreenSize"
+
+    const val UTIL_FILE_UPLOAD = "@fileUpload"
 }

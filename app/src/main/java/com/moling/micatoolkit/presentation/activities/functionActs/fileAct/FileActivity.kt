@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.global
 import com.moling.micatoolkit.presentation.activities.functionActs.swapList
+import com.moling.micatoolkit.presentation.navigator.navToFileUploadFromSource
 import com.moling.micatoolkit.presentation.utils.execShell
 import com.moling.micatoolkit.presentation.utils.getFileType
 import com.moling.micatoolkit.presentation.widgets.fileList.FileItem
@@ -33,7 +34,9 @@ fun FilesAct(navController: NavController) {
         fileList = filesList,
         isRemoteMode = global.getString("fileSource") == Constants.FILE_SOURCE_REMOTE,
         onFileSelect = {
-
+            if (global.getString("fileSource") == Constants.FILE_SOURCE_LOCAL) {
+                navToFileUploadFromSource(navController, it)
+            }
         },
         onDirChange = {
             location = it
@@ -56,10 +59,11 @@ fun FilesAct(navController: NavController) {
 }
 
 fun loadLocalDirectory(path: String): List<FileItem> {
+    val directoryList = mutableListOf<FileItem>()
     val filesList = mutableListOf<FileItem>()
     for (obj in File(path).listFiles()!!) {
         if (obj.isDirectory) {
-            filesList.add(
+            directoryList.add(
                 FileItem(
                     icon = Icons.Outlined.Folder,
                     name = obj.name,
@@ -80,14 +84,15 @@ fun loadLocalDirectory(path: String): List<FileItem> {
             )
         }
     }
-    return filesList
+    return directoryList+filesList
 }
 
 fun loadRemoteDirectory(path: String): List<FileItem> {
+    val directoryList = mutableListOf<FileItem>()
     val filesList = mutableListOf<FileItem>()
     for (obj in requireNotNull(Constants.adb).execShell("ls -AF $path").allOutput.split("\n")) {
         if (obj.endsWith("/")) {
-            filesList.add(
+            directoryList.add(
                 FileItem(
                     icon = Icons.Outlined.Folder,
                     name = obj.dropLast(1),
@@ -114,5 +119,5 @@ fun loadRemoteDirectory(path: String): List<FileItem> {
             )
         }
     }
-    return filesList
+    return directoryList+filesList
 }

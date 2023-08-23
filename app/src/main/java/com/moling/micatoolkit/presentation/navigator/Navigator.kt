@@ -64,6 +64,13 @@ fun navToFileManager(navController: NavController) {
     }
 }
 
+fun navToFileSelector(navController: NavController) {
+    global.set("fileSource", Constants.FILE_SOURCE_LOCAL)
+    navController.navigate(NavRoute.ROUTE_FILE) {
+        popUpTo(NavRoute.ROUTE_TOOL)
+    }
+}
+
 fun navToScreenSizeEditor(navController: NavController) {
     global.set("screenEditor", Constants.EDITOR_SCREEN_SIZE)
     navController.navigate(NavRoute.EDITOR_SCREEN_SIZE) {
@@ -75,5 +82,20 @@ fun navToScreenDensityEditor(navController: NavController) {
     global.set("screenEditor", Constants.EDITOR_SCREEN_DENSITY)
     navController.navigate(NavRoute.EDITOR_SCREEN_SIZE) {
         popUpTo(NavRoute.ROUTE_DETAIL)
+    }
+}
+
+fun navToFileUploadFromTarget(navController: NavController, uploadTarget: String) {
+    global.set("fileUploadTarget", uploadTarget)
+    navController.navigate(NavRoute.UTIL_FILE_UPLOAD) {
+        popUpTo(NavRoute.ROUTE_FILE)
+    }
+}
+
+fun navToFileUploadFromSource(navController: NavController, uploadSource: String) {
+    global.set("fileSource", Constants.FILE_SOURCE_REMOTE)
+    global.set("fileUploadSource", uploadSource)
+    navController.navigate(NavRoute.UTIL_FILE_UPLOAD) {
+        popUpTo(NavRoute.ROUTE_FILE)
     }
 }

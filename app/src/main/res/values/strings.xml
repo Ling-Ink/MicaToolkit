@@ -30,6 +30,9 @@
     <string name="editor_screen_density_value">Screen Density</string>
     <!-- /* File Manager */ -->
     <string name="tool_fileList">File Manager</string>
+    <!-- /* File Upload */ -->
+    <string name="util_fileUpload">File Upload</string>
+    <string name="upload_selectSource">Select Source File</string>
     <!-- /* Application Manager */ -->
     <string name="tool_appManager">App Manager</string>
     <string name="detail_appList">App List</string>

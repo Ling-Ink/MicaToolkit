@@ -15,7 +15,11 @@ class Global {
         Log.d("MICA", "Global | $globalDict")
     }
 
-    fun getAny(key: String): Any? {
+    fun containsKey(key: String): Boolean {
+        return globalDict.containsKey(key)
+    }
+
+    private fun getAny(key: String): Any? {
         return globalDict.get(key)
     }
 
