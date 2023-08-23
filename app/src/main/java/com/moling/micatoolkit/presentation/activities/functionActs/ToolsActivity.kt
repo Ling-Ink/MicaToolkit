@@ -36,8 +36,8 @@ import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.glo
 import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.toolsList
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.showToast
-import com.moling.micatoolkit.presentation.widgets.func.FunctionItem
-import com.moling.micatoolkit.presentation.widgets.func.FunctionList
+import com.moling.micatoolkit.presentation.widgets.functionList.FunctionItem
+import com.moling.micatoolkit.presentation.widgets.functionList.FunctionList
 import dadb.AdbKeyPair
 import dadb.Dadb
 import java.net.ConnectException

@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.widgets.file
+package com.moling.micatoolkit.presentation.widgets.fileList
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.moling.micatoolkit.presentation.utils.getFileType

@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--string name="app_name">MicaToolkit</string-->
     <string name="startAct_SelDevice">选择目标设备</string>
     <string name="targetAct_DeviceList">设备列表</string>
     <string name="portAct_RemotePort">端口(留空为5555)</string>
-    <string name="tool_fileList">文件管理</string>
     <string name="toolsAct_ToolsList">工具列表</string>
+    <!-- /* Connecting Status */ -->
     <string name="status_connecting">正在连接…</string>
     <string name="status_connected">已连接</string>
     <string name="status_connectfailed">连接失败</string>
-
+    <!-- /* Device Info */ -->
     <string name="tool_deviceInfo">设备信息</string>
-
     <string name="detail_deviceInfo">设备信息</string>
     <string name="detail_device_model">设备型号</string>
+    <!--string name="detail_device_androidID">Android ID</string-->
     <string name="detail_device_build">Android 版本</string>
     <string name="detail_device_brand">设备品牌</string>
     <string name="detail_device_sdk">SDK 版本</string>
     <string name="detail_device_patch">安全补丁程序级别</string>
-
+    <!-- /* Screen Info */ -->
     <string name="tool_screenInfo">屏幕信息</string>
-
     <string name="detail_screenInfo">屏幕信息</string>
     <string name="detail_screen_size_default">默认屏幕分辨率</string>
     <string name="detail_screen_size_external">当前屏幕分辨率</string>
     <string name="detail_screen_density_default">默认屏幕 Dpi</string>
     <string name="detail_screen_density_external">当前屏幕 Dpi</string>
-
+    <string name="editor_screen_size_width">屏幕宽度</string>
+    <string name="editor_screen_size_height">屏幕高度</string>
+    <string name="editor_screen_density_value">屏幕 Dpi</string>
+    <!-- /* File Manager */ -->
+    <string name="tool_fileList">文件管理</string>
+    <!-- /* Application Manager */ -->
     <string name="tool_appManager">应用管理</string>
-
     <string name="detail_appList">应用列表</string>
     <string name="detail_appInstall">应用安装</string>
 </resources>

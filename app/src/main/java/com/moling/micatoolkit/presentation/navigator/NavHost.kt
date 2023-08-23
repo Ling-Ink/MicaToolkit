@@ -9,6 +9,7 @@ import com.moling.micatoolkit.presentation.activities.functionActs.PortAct
 import com.moling.micatoolkit.presentation.activities.functionActs.StartAct
 import com.moling.micatoolkit.presentation.activities.functionActs.TargetAct
 import com.moling.micatoolkit.presentation.activities.functionActs.ToolAct
+import com.moling.micatoolkit.presentation.activities.functionActs.editorAct.ScreenEditorAct
 import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.FilesAct
 
 @Composable
@@ -23,6 +24,8 @@ fun NavHost() {
         composable(NavRoute.ROUTE_DETAIL) { DetailAct(navController = navController) }
 
         composable(NavRoute.ROUTE_FILE) { FilesAct(navController = navController) }
+
+        composable(NavRoute.EDITOR_SCREEN_SIZE) { ScreenEditorAct(navController = navController) }
     }
 }
 
@@ -41,4 +44,6 @@ object NavRoute {
     const val TOOL_APPMGR = "appmgr"
 
     const val DETAIL_APP_LIST = "appList"
+
+    const val EDITOR_SCREEN_SIZE = "_ScreenSize"
 }

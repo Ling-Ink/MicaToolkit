@@ -8,7 +8,7 @@ import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material.icons.outlined.Watch
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.utils.adbExec
-import com.moling.micatoolkit.presentation.widgets.func.FunctionItem
+import com.moling.micatoolkit.presentation.widgets.functionList.FunctionItem
 
 fun deviceInfoList(): List<FunctionItem> {
     return listOf(

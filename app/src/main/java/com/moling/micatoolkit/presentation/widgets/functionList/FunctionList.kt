@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.widgets.func
+package com.moling.micatoolkit.presentation.widgets.functionList
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

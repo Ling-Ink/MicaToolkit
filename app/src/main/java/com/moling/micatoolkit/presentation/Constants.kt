@@ -14,5 +14,8 @@ class Constants {
 
         const val FILE_SOURCE_LOCAL = "local"
         const val FILE_SOURCE_REMOTE = "remote"
+
+        const val EDITOR_SCREEN_SIZE = "_ScreenSize"
+        const val EDITOR_SCREEN_DENSITY = "_ScreenDensity"
     }
 }

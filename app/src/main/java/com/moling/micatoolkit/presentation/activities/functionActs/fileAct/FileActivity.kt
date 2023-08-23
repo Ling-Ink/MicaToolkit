@@ -19,8 +19,8 @@ import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.glo
 import com.moling.micatoolkit.presentation.activities.functionActs.swapList
 import com.moling.micatoolkit.presentation.utils.execShell
 import com.moling.micatoolkit.presentation.utils.getFileType
-import com.moling.micatoolkit.presentation.widgets.file.FileItem
-import com.moling.micatoolkit.presentation.widgets.file.FileList
+import com.moling.micatoolkit.presentation.widgets.fileList.FileItem
+import com.moling.micatoolkit.presentation.widgets.fileList.FileList
 import java.io.File
 
 @Composable

@@ -63,3 +63,17 @@ fun navToFileManager(navController: NavController) {
         popUpTo(NavRoute.ROUTE_TOOL)
     }
 }
+
+fun navToScreenSizeEditor(navController: NavController) {
+    global.set("screenEditor", Constants.EDITOR_SCREEN_SIZE)
+    navController.navigate(NavRoute.EDITOR_SCREEN_SIZE) {
+        popUpTo(NavRoute.ROUTE_DETAIL)
+    }
+}
+
+fun navToScreenDensityEditor(navController: NavController) {
+    global.set("screenEditor", Constants.EDITOR_SCREEN_DENSITY)
+    navController.navigate(NavRoute.EDITOR_SCREEN_SIZE) {
+        popUpTo(NavRoute.ROUTE_DETAIL)
+    }
+}

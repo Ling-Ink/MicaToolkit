@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.widgets.file
+package com.moling.micatoolkit.presentation.widgets.fileList
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -26,7 +26,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.utils.showToast
-import com.moling.micatoolkit.presentation.widgets.func.FuncChip
+import com.moling.micatoolkit.presentation.widgets.functionList.FuncChip
 
 @Composable
 fun FileList(

@@ -3,7 +3,7 @@ package com.moling.micatoolkit.presentation.activities.functionActs.detailAct.me
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Android
 import com.moling.micatoolkit.presentation.utils.adbExec
-import com.moling.micatoolkit.presentation.widgets.func.FunctionItem
+import com.moling.micatoolkit.presentation.widgets.functionList.FunctionItem
 
 fun appList(): List<FunctionItem> {
     val packages = adbExec("pm list packages -3").split("\n")

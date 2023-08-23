@@ -5,7 +5,7 @@ import androidx.compose.material.icons.outlined.GridView
 import androidx.compose.material.icons.outlined.InstallMobile
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.navigator.navToAppListDetail
-import com.moling.micatoolkit.presentation.widgets.func.FunctionItem
+import com.moling.micatoolkit.presentation.widgets.functionList.FunctionItem
 
 fun appManagerList(): List<FunctionItem> {
     return listOf(

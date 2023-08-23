@@ -10,7 +10,7 @@ import com.moling.micatoolkit.presentation.navigator.navToAppManager
 import com.moling.micatoolkit.presentation.navigator.navToDeviceDetail
 import com.moling.micatoolkit.presentation.navigator.navToFileManager
 import com.moling.micatoolkit.presentation.navigator.navToScreenDetail
-import com.moling.micatoolkit.presentation.widgets.func.FunctionItem
+import com.moling.micatoolkit.presentation.widgets.functionList.FunctionItem
 
 fun toolsList(): List<FunctionItem> {
     return listOf(
