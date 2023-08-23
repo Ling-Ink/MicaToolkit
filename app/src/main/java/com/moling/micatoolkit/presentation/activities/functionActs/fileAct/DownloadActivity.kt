@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Publish
-import androidx.compose.material.icons.outlined.Upload
+import androidx.compose.material.icons.outlined.ArrowDownward
+import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,51 +32,47 @@ import androidx.wear.compose.material.Text
 import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.global
-import com.moling.micatoolkit.presentation.navigator.navToFileSelector
+import com.moling.micatoolkit.presentation.navigator.navToDirSelector
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
-import com.moling.micatoolkit.presentation.utils.pushFile
+import com.moling.micatoolkit.presentation.utils.pullFile
 import com.moling.micatoolkit.presentation.utils.showToast
 import com.moling.micatoolkit.presentation.widgets.ConfirmButton
 import java.io.File
 
 @Composable
-fun UploadFileAct(navController: NavController) {
-    var isUploading by remember { mutableStateOf(false) }
-    var uploadStatus by remember { mutableStateOf(0) }
-    var fileUploadSource = ""
-    var fileUploadName = ""
-    if (global.containsKey("fileUploadSource")) {
-        fileUploadSource = global.getString("fileUploadSource")
-        fileUploadName = fileUploadSource.split("/").last()
-    }
+fun DownloadFileAct(navController: NavController) {
+    var isDownloading by remember { mutableStateOf(false) }
+    var downloadStatus by remember { mutableStateOf(0) }
+    val fileDownloadSource = global.getString("fileDownloadSource")
+    val fileDownloadName = fileDownloadSource.split("/").last()
     MicaToolkitTheme {
         ScalingLazyColumn(
             modifier = Modifier.fillMaxWidth()
         ) {
-            item { UploadInfoHeader(header = stringResource(id = R.string.util_fileUpload)) }
+            item { DownloadInfoHeader(header = stringResource(id = R.string.util_fileDownload)) }
             item {
-                UploadInfoChip(icon = Icons.Outlined.Publish, label = global.getString("fileUploadTarget")) {
-                    navController.popBackStack()
-                }
+                DownloadInfoChip(
+                    icon = Icons.Outlined.ArrowDownward, onClick = { /* IGNORE */ },
+                    label = if (fileDownloadSource.isEmpty()) stringResource(id = R.string.download_selectTarget) else fileDownloadName
+                )
             }
             item {
-                UploadInfoChip(
-                    icon = Icons.Outlined.Upload,
-                    label = if (fileUploadSource.isEmpty()) stringResource(id = R.string.upload_selectSource) else fileUploadName
-                ) {
-                    navToFileSelector(navController)
-                }
+                DownloadInfoChip(
+                    icon = Icons.Outlined.Download,
+                    label = if (global.containsKey("fileDownloadTarget")) global.getString("fileDownloadTarget") else stringResource(id = R.string.download_selectTarget)) {
+                        navToDirSelector(navController)
+                    }
             }
             item {
                 ConfirmButton {
                     Thread{
-                        isUploading = true
-                        val execResult = requireNotNull(Constants.adb).pushFile(
-                            File(fileUploadSource),
-                            "${global.getString("fileUploadTarget")}/${fileUploadName}"
+                        isDownloading = true
+                        val execResult = requireNotNull(Constants.adb).pullFile(
+                            File("${global.getString("fileDownloadTarget")}/${fileDownloadName}"),
+                            global.getString("fileDownloadSource")
                         )
-                        uploadStatus = if (execResult.isEmpty()) {
-                            "Upload Finished".showToast()
+                        downloadStatus = if (execResult.isEmpty()) {
+                            "Download Finished".showToast()
                             1
                         } else {
                             execResult.showToast()
@@ -86,18 +82,18 @@ fun UploadFileAct(navController: NavController) {
                 }
             }
         }
-        if (isUploading) {
-            when (uploadStatus) {
-                0 -> UploadingProgress()
-                -1 -> UploadedProgress(color = MaterialTheme.colors.error)
-                1 -> UploadedProgress(color = Color(0xFF00C853))
+        if (isDownloading) {
+            when (downloadStatus) {
+                0 -> DownloadingProgress()
+                -1 -> DownloadedProgress(color = MaterialTheme.colors.error)
+                1 -> DownloadedProgress(color = Color(0xFF00C853))
             }
         }
     }
 }
 
 @Composable
-fun UploadInfoHeader(
+fun DownloadInfoHeader(
     header: String
 ) {
     ListHeader {
@@ -109,7 +105,7 @@ fun UploadInfoHeader(
 }
 
 @Composable
-fun UploadInfoChip(
+fun DownloadInfoChip(
     icon: ImageVector,
     label: String,
     onClick: () -> Unit
@@ -137,7 +133,7 @@ fun UploadInfoChip(
 }
 
 @Composable
-fun UploadingProgress() {
+fun DownloadingProgress() {
     CircularProgressIndicator(
         modifier = Modifier
             .fillMaxSize()
@@ -146,7 +142,7 @@ fun UploadingProgress() {
 }
 
 @Composable
-fun UploadedProgress(
+fun DownloadedProgress(
     color: Color
 ) {
     CircularProgressIndicator(

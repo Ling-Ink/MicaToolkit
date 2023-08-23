@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.app.ActivityCompat
-import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.Global
 import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.global
 import com.moling.micatoolkit.presentation.navigator.NavHost
@@ -39,6 +38,7 @@ class MainActivity : ComponentActivity() {
         context = applicationContext
         // 请求权限
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 222)
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 222)
         // 直接在此处获取一个toast对象
         toast = Toast.makeText(applicationContext,"", Toast.LENGTH_SHORT)
         setContent {

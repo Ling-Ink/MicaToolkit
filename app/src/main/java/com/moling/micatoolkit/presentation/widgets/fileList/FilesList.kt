@@ -1,6 +1,5 @@
 package com.moling.micatoolkit.presentation.widgets.fileList
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.CreateNewFolder
+import androidx.compose.material.icons.outlined.Done
 import androidx.compose.material.icons.outlined.UploadFile
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,8 +25,9 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.moling.micatoolkit.presentation.Constants
+import com.moling.micatoolkit.presentation.navigator.navToFileDownloadFromTarget
+import com.moling.micatoolkit.presentation.navigator.navToFileInfo
 import com.moling.micatoolkit.presentation.navigator.navToFileUploadFromTarget
-import com.moling.micatoolkit.presentation.utils.showToast
 import com.moling.micatoolkit.presentation.widgets.functionList.FuncChip
 
 @Composable
@@ -35,6 +36,7 @@ fun FileList(
     location: String,
     fileList: List<FileItem>,
     isRemoteMode: Boolean = true,
+    browseMode: String,
     onFileSelect: (path: String) -> Unit,
     onDirChange: (path: String) -> Unit
 ) {
@@ -62,6 +64,9 @@ fun FileList(
                         CreateFolderChip()
                         UploadChip(navController, location)
                     }
+                    if (browseMode == Constants.BROWSER_MODE_DIRECTORY) {
+                        DirSelectChip(navController, location)
+                    }
                 }
             )
 
@@ -79,7 +84,7 @@ fun FileList(
                     }
                 },
                 onLongClick = {
-                    "Long Click".showToast(Toast.LENGTH_SHORT)
+                    if (it.type != Constants.DIRECTORY) navToFileInfo(navController, "${location}/${it.name}")
                 },
                 colors = ChipDefaults.secondaryChipColors(),
                 modifier = Modifier.fillMaxWidth(),
@@ -135,6 +140,25 @@ fun UploadChip(
         label = {
             Column(verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxHeight()) {
                 Icon(imageVector = Icons.Outlined.UploadFile, contentDescription = "")
+            }
+        }
+    )
+}
+
+@Composable
+fun DirSelectChip(
+    navController: NavController,
+    location: String
+) {
+    Chip(
+        onClick = {
+            navToFileDownloadFromTarget(navController, location)
+        },
+        colors = ChipDefaults.secondaryChipColors(),
+        modifier = Modifier.padding(start = 5.dp),
+        label = {
+            Column(verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxHeight()) {
+                Icon(imageVector = Icons.Outlined.Done, contentDescription = "")
             }
         }
     )

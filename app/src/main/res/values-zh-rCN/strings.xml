@@ -30,9 +30,16 @@
     <string name="editor_screen_density_value">屏幕 Dpi</string>
     <!-- /* File Manager */ -->
     <string name="tool_fileList">文件管理</string>
-    <string name="upload_selectSource">选择要上传的文件</string>
     <!-- /* File Upload */ -->
     <string name="util_fileUpload">文件上传</string>
+    <string name="upload_selectSource">选择要上传的文件</string>
+    <!-- /* File Download */ -->
+    <string name="util_fileDownload">文件下载</string>
+    <string name="download_selectTarget">选择目标文件夹</string>
+    <!-- /* File Info */ -->
+    <string name="detail_fileInfo">文件信息</string>
+    <string name="detail_file_size">文件大小</string>
+    <string name="detail_file_download">下载文件</string>
     <!-- /* Application Manager */ -->
     <string name="tool_appManager">应用管理</string>
     <string name="detail_appList">应用列表</string>

@@ -26,7 +26,7 @@ fun navToToolAct(navController: NavController, port: Int) {
 }
 
 fun navToDeviceDetail(navController: NavController) {
-    global.set("detailType", NavRoute.TOOL_DEVICE)
+    global.set("detailType", NavRoute.DETAIL_DEVICE)
     global.set("detailTitleId", R.string.tool_deviceInfo)
     navController.navigate(NavRoute.ROUTE_DETAIL) {
         popUpTo(NavRoute.ROUTE_TOOL)
@@ -34,7 +34,7 @@ fun navToDeviceDetail(navController: NavController) {
 }
 
 fun navToScreenDetail(navController: NavController) {
-    global.set("detailType", NavRoute.TOOL_SCREEN)
+    global.set("detailType", NavRoute.DETAIL_SCREEN)
     global.set("detailTitleId", R.string.tool_screenInfo)
     navController.navigate(NavRoute.ROUTE_DETAIL) {
         popUpTo(NavRoute.ROUTE_TOOL)
@@ -42,7 +42,7 @@ fun navToScreenDetail(navController: NavController) {
 }
 
 fun navToAppManager(navController: NavController) {
-    global.set("detailType", NavRoute.TOOL_APPMGR)
+    global.set("detailType", NavRoute.DETAIL_APPMGR)
     global.set("detailTitleId", R.string.tool_appManager)
     navController.navigate(NavRoute.ROUTE_DETAIL) {
         popUpTo(NavRoute.ROUTE_TOOL)
@@ -57,8 +57,23 @@ fun navToAppListDetail(navController: NavController) {
     }
 }
 
+fun navToScreenSizeEditor(navController: NavController) {
+    global.set("screenEditor", Constants.EDITOR_SCREEN_SIZE)
+    navController.navigate(NavRoute.EDITOR_SCREEN) {
+        popUpTo(NavRoute.ROUTE_DETAIL)
+    }
+}
+
+fun navToScreenDensityEditor(navController: NavController) {
+    global.set("screenEditor", Constants.EDITOR_SCREEN_DENSITY)
+    navController.navigate(NavRoute.EDITOR_SCREEN) {
+        popUpTo(NavRoute.ROUTE_DETAIL)
+    }
+}
+
 fun navToFileManager(navController: NavController) {
     global.set("fileSource", Constants.FILE_SOURCE_REMOTE)
+    global.set("fileBrowserMode", Constants.BROWSER_MODE_BROWSE)
     navController.navigate(NavRoute.ROUTE_FILE) {
         popUpTo(NavRoute.ROUTE_TOOL)
     }
@@ -66,22 +81,9 @@ fun navToFileManager(navController: NavController) {
 
 fun navToFileSelector(navController: NavController) {
     global.set("fileSource", Constants.FILE_SOURCE_LOCAL)
+    global.set("fileBrowserMode", Constants.BROWSER_MODE_FILE)
     navController.navigate(NavRoute.ROUTE_FILE) {
-        popUpTo(NavRoute.ROUTE_TOOL)
-    }
-}
-
-fun navToScreenSizeEditor(navController: NavController) {
-    global.set("screenEditor", Constants.EDITOR_SCREEN_SIZE)
-    navController.navigate(NavRoute.EDITOR_SCREEN_SIZE) {
-        popUpTo(NavRoute.ROUTE_DETAIL)
-    }
-}
-
-fun navToScreenDensityEditor(navController: NavController) {
-    global.set("screenEditor", Constants.EDITOR_SCREEN_DENSITY)
-    navController.navigate(NavRoute.EDITOR_SCREEN_SIZE) {
-        popUpTo(NavRoute.ROUTE_DETAIL)
+        popUpTo(NavRoute.UTIL_FILE_UPLOAD)
     }
 }
 
@@ -97,5 +99,37 @@ fun navToFileUploadFromSource(navController: NavController, uploadSource: String
     global.set("fileUploadSource", uploadSource)
     navController.navigate(NavRoute.UTIL_FILE_UPLOAD) {
         popUpTo(NavRoute.ROUTE_FILE)
+    }
+}
+
+fun navToFileInfo(navController: NavController, path: String) {
+    global.set("detailType", NavRoute.DETAIL_FILE_INFO)
+    global.set("detailTitleId", R.string.detail_fileInfo)
+    global.set("filePath", path)
+    navController.navigate(NavRoute.ROUTE_DETAIL) {
+        popUpTo(NavRoute.ROUTE_FILE)
+    }
+}
+
+fun navToFileDownload(navController: NavController, downloadSource: String) {
+    global.set("fileDownloadSource", downloadSource)
+    navController.navigate(NavRoute.UTIL_FILE_DOWNLOAD) {
+        popUpTo(NavRoute.ROUTE_DETAIL)
+    }
+}
+
+fun navToDirSelector(navController: NavController) {
+    global.set("fileSource", Constants.FILE_SOURCE_LOCAL)
+    global.set("fileBrowserMode", Constants.BROWSER_MODE_DIRECTORY)
+    navController.navigate(NavRoute.ROUTE_FILE) {
+        popUpTo(NavRoute.UTIL_FILE_DOWNLOAD)
+    }
+}
+
+fun navToFileDownloadFromTarget(navController: NavController, downloadTarget: String) {
+    global.set("fileSource", Constants.FILE_SOURCE_REMOTE)
+    global.set("fileDownloadTarget", downloadTarget)
+    navController.navigate(NavRoute.UTIL_FILE_DOWNLOAD) {
+        popUpTo(NavRoute.ROUTE_DETAIL)
     }
 }

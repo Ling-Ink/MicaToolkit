@@ -17,5 +17,9 @@ class Constants {
 
         const val EDITOR_SCREEN_SIZE = "_ScreenSize"
         const val EDITOR_SCREEN_DENSITY = "_ScreenDensity"
+
+        const val BROWSER_MODE_FILE = "#FILE"
+        const val BROWSER_MODE_DIRECTORY = "#DIRECTORY"
+        const val BROWSER_MODE_BROWSE = "#BROWSE"
     }
 }

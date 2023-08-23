@@ -11,6 +11,7 @@ import com.moling.micatoolkit.presentation.activities.functionActs.TargetAct
 import com.moling.micatoolkit.presentation.activities.functionActs.ToolAct
 import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.UploadFileAct
 import com.moling.micatoolkit.presentation.activities.functionActs.editorAct.ScreenEditorAct
+import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.DownloadFileAct
 import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.FilesAct
 
 @Composable
@@ -26,29 +27,33 @@ fun NavHost() {
 
         composable(NavRoute.ROUTE_FILE) { FilesAct(navController = navController) }
 
-        composable(NavRoute.EDITOR_SCREEN_SIZE) { ScreenEditorAct(navController = navController) }
+        composable(NavRoute.EDITOR_SCREEN) { ScreenEditorAct(navController = navController) }
 
         composable(NavRoute.UTIL_FILE_UPLOAD) { UploadFileAct(navController = navController) }
+        composable(NavRoute.UTIL_FILE_DOWNLOAD) { DownloadFileAct(navController = navController) }
     }
 }
 
 object NavRoute {
-    const val ROUTE_START = "start"
-    const val ROUTE_TARGET = "target"
-    const val ROUTE_PORT = "port"
-    const val ROUTE_HELP = "help"
-
+    // Pre-config Acts
+    const val ROUTE_START = "_start"
+    const val ROUTE_TARGET = "_target"
+    const val ROUTE_PORT = "_port"
+    const val ROUTE_HELP = "_help"
+    // Function Acts
     const val ROUTE_TOOL = "tool"
     const val ROUTE_DETAIL = "detail"
-
+    // ToolsAct
     const val ROUTE_FILE = "file"
-    const val TOOL_DEVICE = "device"
-    const val TOOL_SCREEN = "screen"
-    const val TOOL_APPMGR = "appmgr"
-
+    const val DETAIL_DEVICE = "device"
+    const val DETAIL_SCREEN = "screen"
+    const val DETAIL_APPMGR = "appmgr"
+    // DetailAct - AppMgr
     const val DETAIL_APP_LIST = "appList"
-
-    const val EDITOR_SCREEN_SIZE = "_ScreenSize"
-
+    // DetailAct - Screen
+    const val EDITOR_SCREEN = "_Screen"
+    // FileAct
     const val UTIL_FILE_UPLOAD = "@fileUpload"
+    const val UTIL_FILE_DOWNLOAD = "@fileDownload"
+    const val DETAIL_FILE_INFO = "fileInfo"
 }

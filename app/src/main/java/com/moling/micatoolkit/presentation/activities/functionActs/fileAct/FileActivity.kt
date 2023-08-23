@@ -33,6 +33,7 @@ fun FilesAct(navController: NavController) {
         location = location,
         fileList = filesList,
         isRemoteMode = global.getString("fileSource") == Constants.FILE_SOURCE_REMOTE,
+        browseMode = global.getString("fileBrowserMode"),
         onFileSelect = {
             if (global.getString("fileSource") == Constants.FILE_SOURCE_LOCAL) {
                 navToFileUploadFromSource(navController, it)

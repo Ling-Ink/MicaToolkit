@@ -33,6 +33,13 @@
     <!-- /* File Upload */ -->
     <string name="util_fileUpload">File Upload</string>
     <string name="upload_selectSource">Select Source File</string>
+    <!-- /* File Download */ -->
+    <string name="util_fileDownload">File Download</string>
+    <string name="download_selectTarget">Select Target Directory</string>
+    <!-- /* File Info */ -->
+    <string name="detail_fileInfo">File Info</string>
+    <string name="detail_file_size">File Size</string>
+    <string name="detail_file_download">Download File</string>
     <!-- /* Application Manager */ -->
     <string name="tool_appManager">App Manager</string>
     <string name="detail_appList">App List</string>

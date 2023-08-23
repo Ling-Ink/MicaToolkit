@@ -9,6 +9,7 @@ import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.glo
 import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.appList
 import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.appManagerList
 import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.deviceInfoList
+import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.fileInfoList
 import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.screenInfoList
 import com.moling.micatoolkit.presentation.activities.functionActs.swapList
 import com.moling.micatoolkit.presentation.navigator.NavRoute
@@ -30,11 +31,12 @@ fun DetailAct(navController: NavHostController) {
     }
     Thread {
         when (global.getString("detailType")) {
-            NavRoute.TOOL_DEVICE -> funcList.swapList(deviceInfoList())
-            NavRoute.TOOL_SCREEN -> funcList.swapList(screenInfoList())
-            NavRoute.TOOL_APPMGR -> funcList.swapList(appManagerList())
+            NavRoute.DETAIL_DEVICE -> funcList.swapList(deviceInfoList())
+            NavRoute.DETAIL_SCREEN -> funcList.swapList(screenInfoList())
+            NavRoute.DETAIL_APPMGR -> funcList.swapList(appManagerList())
 
             NavRoute.DETAIL_APP_LIST -> funcList.swapList(appList())
+            NavRoute.DETAIL_FILE_INFO -> funcList.swapList(fileInfoList())
         }
     }.start()
 }

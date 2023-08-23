@@ -80,3 +80,7 @@ fun Dadb.pullFile(dstFile: File, remotePath: String): String {
     thread.join()
     return execResult
 }
+
+fun Dadb.getSize(path: String): String {
+    return this.execShell("du -h $path").output.replace(path, "").trim()
+}
