@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.activities.options
+package com.moling.micatoolkit.presentation.activities.functionActs
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
@@ -10,7 +10,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Done
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,15 +25,13 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.moling.micatoolkit.R
-import com.moling.micatoolkit.presentation.AppNavRoute
-import com.moling.micatoolkit.presentation.Constants
-import com.moling.micatoolkit.presentation.activities.IconButton
+import com.moling.micatoolkit.presentation.navigator.navToToolAct
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 
 class PortActivity : ComponentActivity()
 
 @Composable
-fun PortAct(navController: NavHostController, host: String) {
+fun PortAct(navController: NavHostController) {
     var port by remember {  mutableStateOf("") }
     var fieldError by remember { mutableStateOf(false) }
     MicaToolkitTheme {
@@ -52,7 +54,7 @@ fun PortAct(navController: NavHostController, host: String) {
                     TextField(
                         value = port,
                         onValueChange = { port = it },
-                        placeholder = { Text(text = stringResource(id = R.string.txt_remotePort), color = MaterialTheme.colors.surface) },
+                        placeholder = { Text(text = stringResource(id = R.string.portAct_RemotePort), color = MaterialTheme.colors.surface) },
                         textStyle = TextStyle(
                             color = Color.White
                         ),
@@ -68,17 +70,11 @@ fun PortAct(navController: NavHostController, host: String) {
                         modifier = Modifier.padding(top = 15.dp),
                         onClick = {
                             if (port == "") {
-                                navController.navigate("${AppNavRoute.ROUTE_TOOL}/${host}/5555") {
-                                    popUpTo(AppNavRoute.ROUTE_MAIN)
-                                }
+                                navToToolAct(navController, 5555)
                             } else if (port.toInt() !in 1..65535) {
                                 fieldError = true
                             } else {
-                                Constants.host = host
-                                Constants.port = port.toInt()
-                                navController.navigate("${AppNavRoute.ROUTE_TOOL}/${host}/${port.toInt()}") {
-                                    popUpTo(AppNavRoute.ROUTE_MAIN)
-                                }
+                                navToToolAct(navController, port.toInt())
                             }
                         }
                     )

@@ -1,25 +1,18 @@
 package com.moling.micatoolkit.presentation
 
-import android.content.SharedPreferences
 import dadb.Dadb
-import java.io.File
 
 class Constants {
-    companion object {
-        var SharedPreferences: SharedPreferences? = null
+    companion object Const {
         var adb: Dadb? = null
-        var filesDir: File? = null
-        var host: String = ""
-        var port: Int = 0
 
-        const val TYPE_NO_PERM = -1
-        const val TYPE_OTHER = 0
-        const val TYPE_DIRECTORY = 1
-        const val TYPE_APK = 2
-        const val TYPE_IMAGE = 3
+        const val NO_PERM = -1
+        const val OTHER = 0
+        const val DIRECTORY = 1
+        const val APK = 2
+        const val IMAGE = 3
 
-        const val NULL_PARAM_PLACEHOLDER = "NULL"
-
-        var uploadDstPath = ""
+        const val FILE_SOURCE_LOCAL = "local"
+        const val FILE_SOURCE_REMOTE = "remote"
     }
 }

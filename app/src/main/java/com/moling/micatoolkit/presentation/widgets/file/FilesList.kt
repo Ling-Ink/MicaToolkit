@@ -25,10 +25,6 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.moling.micatoolkit.presentation.Constants
-import com.moling.micatoolkit.presentation.FileFunc
-import com.moling.micatoolkit.presentation.FileSource
-import com.moling.micatoolkit.presentation.ToolsRoute
-import com.moling.micatoolkit.presentation.UtilsRoute
 import com.moling.micatoolkit.presentation.utils.showToast
 import com.moling.micatoolkit.presentation.widgets.func.FuncChip
 
@@ -59,11 +55,11 @@ fun FileList(
                 colors = ChipDefaults.secondaryChipColors(backgroundColor = Color.Transparent),
                 label = {
                     BackChip {
-                        navController.popBackStack()
+                        onDirChange(location.split("/").dropLast(1).joinToString("/"))
                     }
                     if (isRemoteMode) {
                         CreateFolderChip()
-                        UploadChip(navController, location)
+                        UploadChip(navController)
                     }
                 }
             )
@@ -73,7 +69,7 @@ fun FileList(
             FuncChip(
                 onClick = {
                     when (it.type) {
-                        Constants.TYPE_DIRECTORY -> {
+                        Constants.DIRECTORY -> {
                             onDirChange("${location}/${it.name}")
                         }
                         else -> {
@@ -127,12 +123,10 @@ fun CreateFolderChip() {
 @Composable
 fun UploadChip(
     navController: NavController,
-    location: String,
 ) {
     Chip(
         onClick = {
-            Constants.uploadDstPath = location
-            navController.navigate("${UtilsRoute.UTIL_UPLOAD}/${location.replace("/", "\\")}")
+            /* TODO */
         },
         colors = ChipDefaults.secondaryChipColors(),
         modifier = Modifier.padding(start = 5.dp),

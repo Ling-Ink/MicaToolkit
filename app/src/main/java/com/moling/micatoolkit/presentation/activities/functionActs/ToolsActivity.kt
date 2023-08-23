@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.activities.functions
+package com.moling.micatoolkit.presentation.activities.functionActs
 
 import android.util.Log
 import android.widget.Toast
@@ -31,17 +31,15 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.moling.micatoolkit.R
-import com.moling.micatoolkit.presentation.FUNC_TOOLS
-import com.moling.micatoolkit.presentation.activities.options.swapList
 import com.moling.micatoolkit.presentation.Constants
+import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.global
+import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.toolsList
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.showToast
 import com.moling.micatoolkit.presentation.widgets.func.FunctionItem
 import com.moling.micatoolkit.presentation.widgets.func.FunctionList
 import dadb.AdbKeyPair
 import dadb.Dadb
-import java.io.File
-import java.io.FileNotFoundException
 import java.net.ConnectException
 
 class ToolActivity : ComponentActivity()
@@ -51,11 +49,11 @@ var functionList = mutableListOf<FunctionItem>()
 @Composable
 fun InitializeMenuList() {
     functionList.clear()
-    functionList.addAll(FUNC_TOOLS())
+    functionList.addAll(toolsList())
 }
 
 @Composable
-fun ToolAct(navController: NavHostController, host: String, port: Int) {
+fun ToolAct(navController: NavHostController) {
     InitializeMenuList()
     MicaToolkitTheme {
         Column(
@@ -63,7 +61,7 @@ fun ToolAct(navController: NavHostController, host: String, port: Int) {
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background)
         ) {
-            ToolList(navController, host, port)
+            ToolList(navController, global.getString("host"), global.getInt("port"))
         }
     }
 }
@@ -73,7 +71,7 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
     var connectStatus by remember { mutableStateOf(0) }
     val funcList = remember { mutableStateListOf<FunctionItem>() }
     FunctionList(
-        headerId = R.string.txt_toolsList,
+        headerId = R.string.toolsAct_ToolsList,
         navController = navController,
         functionsList = funcList,
         headerChip = {
@@ -107,9 +105,19 @@ fun ToolList(navController: NavHostController, host: String, port: Int) {
         }
     )
     if (connectStatus == 0) {
-        connectStatus = adbConnect(host, port)
-        if (connectStatus == 1)
-            funcList.swapList(functionList)
+        Thread {
+            val keyPair: AdbKeyPair = global.getAdbKeyPair("keyPair")
+            Constants.adb = Dadb.create(host, port, keyPair)
+            connectStatus = try {
+                Log.d("MICA", requireNotNull(Constants.adb).shell("whoami").toString())
+                1
+            } catch (e: ConnectException) {
+                e.toString().showToast(Toast.LENGTH_SHORT)
+                -1
+            }
+            if (connectStatus == 1)
+                funcList.swapList(functionList)
+        }.start()
     }
 }
 
@@ -120,44 +128,4 @@ fun HeaderText(id: Int) {
         color = Color.White,
         modifier = Modifier.padding(start = 5.dp)
     )
-}
-
-fun adbConnect(host: String, port: Int): Int {
-    if (Constants.adb != null)
-        requireNotNull(Constants.adb).close()
-    val keyPair: AdbKeyPair = getKeyPair()
-    Log.d("MICA", "ADB Connecting to ${host}:${port}")
-    var result = 1
-
-    val thread = Thread {
-        Constants.adb = Dadb.create(host, port, keyPair)
-        try {
-            Log.d("MICA", requireNotNull(Constants.adb).shell("whoami").toString())
-        } catch (e: ConnectException) {
-            e.toString().showToast(Toast.LENGTH_SHORT)
-            result = -1
-        }
-    }
-    thread.start()
-    thread.join()
-
-    return result
-}
-
-fun getKeyPair(): AdbKeyPair {
-    val ADB_KEY_PATH = requireNotNull(Constants.filesDir).absolutePath
-    val keyPair: AdbKeyPair
-    return try {
-        keyPair = AdbKeyPair.read(
-            File("${ADB_KEY_PATH}/adbkey"),
-            File("${ADB_KEY_PATH}/adbkey.pub")
-        )
-        keyPair
-    } catch (e: FileNotFoundException) {
-        AdbKeyPair.generate(
-            File("${ADB_KEY_PATH}/adbkey"),
-            File("${ADB_KEY_PATH}/adbkey.pub")
-        )
-        getKeyPair()
-    }
 }

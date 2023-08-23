@@ -1,4 +1,4 @@
-package com.moling.micatoolkit.presentation.activities.options
+package com.moling.micatoolkit.presentation.activities.functionActs
 
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -8,18 +8,29 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Refresh
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.*
-import androidx.wear.compose.material.MaterialTheme.colors
+import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.ListHeader
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.items
 import com.moling.micatoolkit.R
-import com.moling.micatoolkit.presentation.AppNavRoute
+import com.moling.micatoolkit.presentation.navigator.navToPortAct
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
 import com.moling.micatoolkit.presentation.utils.checkHost
 import com.moling.micatoolkit.presentation.utils.getHost
@@ -42,7 +53,7 @@ fun TargetAct(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(colors.background)
+                .background(MaterialTheme.colors.background)
         ) {
             DeviceList(
                 deviceList = addressList,
@@ -69,11 +80,11 @@ fun TargetAct(navController: NavHostController) {
                     }.start()
                 },
                 onHostClick = {
-                    navController.navigate("${AppNavRoute.ROUTE_PORT}/${it}")
+                    navToPortAct(navController, it)
                 }
             )
         }
-        androidx.compose.material3.CircularProgressIndicator(
+        CircularProgressIndicator(
             progress = progress,
             modifier = Modifier
                 .fillMaxSize()
@@ -90,7 +101,7 @@ fun DeviceList(deviceList: List<String>, onRefreshClick: () -> Unit, onHostClick
         item {
             ListHeader {
                 Text(
-                    text = stringResource(id = R.string.txt_deviceList),
+                    text = stringResource(id = R.string.targetAct_DeviceList),
                     color = Color.White
                 )
             }

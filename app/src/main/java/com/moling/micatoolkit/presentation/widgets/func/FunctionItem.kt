@@ -2,7 +2,7 @@ package com.moling.micatoolkit.presentation.widgets.func
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 
 class FunctionItem(
     icon: ImageVector,
@@ -11,8 +11,8 @@ class FunctionItem(
     titleId: Int? = null,
     subTitle: String? = null,
     subTitleId: Int? = null,
-    onClick: (navController: NavHostController?) -> Unit,
-    onLongClick: (navController: NavHostController?) -> Unit,
+    onClick: (navController: NavController?) -> Unit,
+    onLongClick: (navController: NavController?) -> Unit,
 ) {
     val icon: ImageVector
     val color: Color?
@@ -20,8 +20,8 @@ class FunctionItem(
     val titleId: Int?
     val subTitle: String?
     val subTitleId: Int?
-    val onClick: (navController: NavHostController?) -> Unit
-    val onLongClick: (navController: NavHostController?) -> Unit
+    val onClick: (navController: NavController?) -> Unit
+    val onLongClick: (navController: NavController?) -> Unit
 
     init {
         this.icon = icon

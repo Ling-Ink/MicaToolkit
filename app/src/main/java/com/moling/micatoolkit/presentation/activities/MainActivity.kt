@@ -12,145 +12,60 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.DevicesOther
-import androidx.compose.material.icons.outlined.Help
-import androidx.compose.material.icons.outlined.Watch
-import androidx.compose.material3.Icon
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
-import androidx.navigation.NavHostController
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.moling.micatoolkit.R
-import com.moling.micatoolkit.presentation.AppNavHost
-import com.moling.micatoolkit.presentation.AppNavRoute
 import com.moling.micatoolkit.presentation.Constants
+import com.moling.micatoolkit.presentation.Global
+import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.global
+import com.moling.micatoolkit.presentation.navigator.NavHost
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
+import dadb.AdbKeyPair
+import java.io.File
+import java.io.FileNotFoundException
 
 class MainActivity : ComponentActivity() {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
         lateinit var toast: Toast
+        lateinit var global: Global
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Constants.SharedPreferences = getSharedPreferences("MicaToolkit", MODE_PRIVATE)
-        Constants.filesDir = filesDir
+        // 初始化全局变量
+        global = Global()
+        global.set("SharedPreferences", getSharedPreferences("MicaToolkit", MODE_PRIVATE))
+        // 加载 AdbKeyPair
+        genKeyPair(filesDir)
         context = applicationContext
         // 请求权限
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 222)
         // 直接在此处获取一个toast对象
-        toast = Toast.makeText(applicationContext,"",Toast.LENGTH_SHORT)
+        toast = Toast.makeText(applicationContext,"", Toast.LENGTH_SHORT)
         setContent {
             MicaToolkitTheme {
-                AppNavHost()
+                NavHost()
             }
         }
     }
 }
 
-@Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
-@Composable
-fun DefaultPreview() {
-    val emptyNavHostController = rememberSwipeDismissableNavController()
-    MainAct(emptyNavHostController)
-}
-
-@Composable
-fun MainAct(navController: NavHostController) {
-    MicaToolkitTheme {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colors.background),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(top = 25.dp)) {
-                    Text(
-                        text = stringResource(id = R.string.txt_selDevice),
-                        modifier = Modifier.padding(bottom = 15.dp)
-                    )
-                    Row {
-                        IconButton(
-                            imageVector = Icons.Outlined.Watch,
-                            backgroundColor = MaterialTheme.colors.primary,
-                            modifier = Modifier.padding(end = 5.dp),
-                            onClick = {
-                                navController.navigate("${AppNavRoute.ROUTE_PORT}/localhost")
-                            }
-                        )
-                        IconButton(
-                            imageVector = Icons.Outlined.DevicesOther,
-                            backgroundColor = MaterialTheme.colors.secondary,
-                            modifier = Modifier.padding(start = 5.dp),
-                            onClick = {
-                                navController.navigate(AppNavRoute.ROUTE_TARGET)
-                            }
-                        )
-                    }
-                }
-                IconButton(
-                    imageVector = Icons.Outlined.Help,
-                    backgroundColor = Color.Transparent,
-                    onClick = { /* TODO: Help Activity */}
-                )
-            }
+fun genKeyPair(filesDir: File) {
+    val ADB_KEY_PATH = filesDir.absolutePath
+    val keyPair: AdbKeyPair
+    global.set(
+        "keyPair",
+        try {
+            keyPair = AdbKeyPair.read(
+                File("${ADB_KEY_PATH}/adbkey"),
+                File("${ADB_KEY_PATH}/adbkey.pub")
+            )
+            keyPair
+        } catch (e: FileNotFoundException) {
+            AdbKeyPair.generate(
+                File("${ADB_KEY_PATH}/adbkey"),
+                File("${ADB_KEY_PATH}/adbkey.pub")
+            )
+            genKeyPair(filesDir)
         }
-    }
-}
-
-@Composable
-fun IconButton(imageVector: ImageVector, backgroundColor: Color, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            contentColor = Color.White,
-            backgroundColor = backgroundColor
-        ),
-    ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = "",
-            tint = Color.White
-        )
-    }
-}
-
-@Composable
-fun IconButton(imageVector: ImageVector, modifier: Modifier, backgroundColor: Color, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            contentColor = Color.White,
-            backgroundColor = backgroundColor
-        ),
-        modifier = modifier
-    ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = "",
-            tint = Color.White
-        )
-    }
+    )
 }

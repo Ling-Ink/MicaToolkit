@@ -1,33 +1,36 @@
 <resources>
     <string name="app_name" translatable="false">MicaToolkit</string>
-    <string name="txt_selDevice">Select target device</string>
-    <string name="txt_remoteHost">Remote Host</string>
-    <string name="txt_remotePort">Remote Port(Default 5555)</string>
-    <string name="txt_deviceList">Device List</string>
-    <string name="txt_refresh">Refresh</string>
-    <string name="txt_toolsList">Tools List</string>
-    <string name="status_connecting">Connecting…</string>
+    <string name="startAct_SelDevice">Select target divice</string>
+    <string name="targetAct_DeviceList">DeviceList</string>
+    <string name="portAct_RemotePort">Remote Port(Default 5555)</string>
+    <string name="tool_fileList">File List</string>
+    <string name="toolsAct_ToolsList">Tools List</string>
+    <string name="status_connecting">Connecting...</string>
     <string name="status_connected">Connected</string>
     <string name="status_connectfailed">Connect Failed</string>
-    <string name="menu_deviceInfo">Device Info</string>
-    <string name="menu_screenInfo">Screen Info</string>
+
+    <string name="tool_deviceInfo">Device Info</string>
+
+    <string name="detail_deviceInfo">Device Info</string>
     <string name="detail_device_model">Device Model</string>
     <string name="detail_device_androidID" translatable="false">Android ID</string>
     <string name="detail_device_build">Android Version</string>
     <string name="detail_device_brand">Device Brand</string>
     <string name="detail_device_sdk">SDK Version</string>
     <string name="detail_device_patch">Security Patch</string>
+
+    <string name="tool_screenInfo">Screen Info</string>
+
+    <string name="detail_screenInfo">Screen Info</string>
     <string name="detail_screen_size_default">Default Screen Size</string>
     <string name="detail_screen_size_external">External Screen Size</string>
     <string name="detail_screen_density_default">Default Screen Density</string>
     <string name="detail_screen_density_external">External Screen Density</string>
-    <string name="menu_fileList">File Explorer</string>
-    <string name="menu_appManager">App Manager</string>
-    <string name="txt_lastDir" translatable="false">..</string>
+
+    <string name="tool_appManager">App Manager</string>
+
     <string name="detail_appList">App List</string>
     <string name="detail_appInstall">App Install</string>
-    <string name="file_upload">Upload File</string>
-    <string name="txt_selectFile">Select File...</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

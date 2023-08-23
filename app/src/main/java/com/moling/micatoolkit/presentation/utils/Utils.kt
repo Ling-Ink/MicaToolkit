@@ -1,8 +1,8 @@
 package com.moling.micatoolkit.presentation.utils
 
 import android.widget.Toast
-import com.moling.micatoolkit.presentation.activities.MainActivity
 import com.moling.micatoolkit.presentation.Constants
+import com.moling.micatoolkit.presentation.activities.MainActivity
 
 fun String.showToast(duration: Int = Toast.LENGTH_SHORT){
     MainActivity .toast.setText(this)
@@ -15,13 +15,13 @@ const val SUFFIX_APK = "apk"
 fun getFileType(fileName: String): Int {
     return when (fileName.split(".").last()) {
         in SUFFIX_IMAGE.split("|") -> {
-            Constants.TYPE_IMAGE
+            Constants.IMAGE
         }
         SUFFIX_APK -> {
-            Constants.TYPE_APK
+            Constants.APK
         }
         else -> {
-            Constants.TYPE_OTHER
+            Constants.OTHER
         }
     }
 }

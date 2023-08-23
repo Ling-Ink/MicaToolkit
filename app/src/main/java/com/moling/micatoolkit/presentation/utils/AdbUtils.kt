@@ -1,9 +1,14 @@
 package com.moling.micatoolkit.presentation.utils
 
+import com.moling.micatoolkit.presentation.Constants
 import dadb.AdbShellResponse
 import dadb.Dadb
 import java.io.File
 import java.io.IOException
+
+fun adbExec(command: String): String {
+    return requireNotNull(Constants.adb).execShell(command).output
+}
 
 fun Dadb.execShell(command: String): AdbShellResponse {
     var execResult: AdbShellResponse? = null
