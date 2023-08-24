@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.global
 import com.moling.micatoolkit.presentation.activities.functionActs.swapList
-import com.moling.micatoolkit.presentation.navigator.navToFileUploadFromSource
 import com.moling.micatoolkit.presentation.utils.execShell
 import com.moling.micatoolkit.presentation.utils.getFileType
 import com.moling.micatoolkit.presentation.widgets.fileList.FileItem
@@ -36,7 +35,9 @@ fun FilesAct(navController: NavController) {
         browseMode = global.getString("fileBrowserMode"),
         onFileSelect = {
             if (global.getString("fileSource") == Constants.FILE_SOURCE_LOCAL) {
-                navToFileUploadFromSource(navController, it)
+                global.set("fileSource", Constants.FILE_SOURCE_REMOTE)
+                global.set("fileUploadSource", it)
+                navController.popBackStack()
             }
         },
         onDirChange = {

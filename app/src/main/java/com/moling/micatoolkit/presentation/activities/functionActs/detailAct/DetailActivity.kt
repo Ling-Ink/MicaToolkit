@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.global
+import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.appInfoList
 import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.appList
 import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.appManagerList
 import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.menuList.deviceInfoList
@@ -37,6 +38,7 @@ fun DetailAct(navController: NavHostController) {
 
             NavRoute.DETAIL_APP_LIST -> funcList.swapList(appList())
             NavRoute.DETAIL_FILE_INFO -> funcList.swapList(fileInfoList())
+            NavRoute.DETAIL_APP_INFO -> funcList.swapList(appInfoList())
         }
     }.start()
 }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DevicesOther
-import androidx.compose.material.icons.outlined.Help
 import androidx.compose.material.icons.outlined.Watch
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -43,7 +42,7 @@ fun StartAct(navController: NavHostController) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(top = 25.dp)) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         text = stringResource(id = R.string.startAct_SelDevice),
                         modifier = Modifier.padding(bottom = 15.dp)
@@ -67,30 +66,8 @@ fun StartAct(navController: NavHostController) {
                         )
                     }
                 }
-                IconButton(
-                    imageVector = Icons.Outlined.Help,
-                    backgroundColor = Color.Transparent,
-                    onClick = { /* TODO: Help Activity */}
-                )
             }
         }
-    }
-}
-
-@Composable
-fun IconButton(imageVector: ImageVector, backgroundColor: Color, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            contentColor = Color.White,
-            backgroundColor = backgroundColor
-        ),
-    ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = "",
-            tint = Color.White
-        )
     }
 }
 

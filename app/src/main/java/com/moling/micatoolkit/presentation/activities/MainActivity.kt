@@ -9,6 +9,7 @@ package com.moling.micatoolkit.presentation.activities
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -30,6 +31,7 @@ class MainActivity : ComponentActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         // 初始化全局变量
         global = Global()
         global.set("SharedPreferences", getSharedPreferences("MicaToolkit", MODE_PRIVATE))

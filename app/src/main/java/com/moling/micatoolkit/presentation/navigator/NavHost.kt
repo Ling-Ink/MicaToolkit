@@ -9,6 +9,8 @@ import com.moling.micatoolkit.presentation.activities.functionActs.PortAct
 import com.moling.micatoolkit.presentation.activities.functionActs.StartAct
 import com.moling.micatoolkit.presentation.activities.functionActs.TargetAct
 import com.moling.micatoolkit.presentation.activities.functionActs.ToolAct
+import com.moling.micatoolkit.presentation.activities.functionActs.appsAct.InstallAct
+import com.moling.micatoolkit.presentation.activities.functionActs.appsAct.UninstallAct
 import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.UploadFileAct
 import com.moling.micatoolkit.presentation.activities.functionActs.editorAct.ScreenEditorAct
 import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.CreateFolderAct
@@ -33,6 +35,8 @@ fun NavHost() {
         composable(NavRoute.UTIL_FILE_UPLOAD) { UploadFileAct(navController = navController) }
         composable(NavRoute.UTIL_FILE_DOWNLOAD) { DownloadFileAct(navController = navController) }
         composable(NavRoute.UTIL_FOLDER_CREATE) { CreateFolderAct(navController = navController) }
+        composable(NavRoute.UTIL_APP_UNINSTALL) { UninstallAct() }
+        composable(NavRoute.UTIL_APP_INSTALL) { InstallAct(navController = navController) }
     }
 }
 
@@ -41,7 +45,6 @@ object NavRoute {
     const val ROUTE_START = "_start"
     const val ROUTE_TARGET = "_target"
     const val ROUTE_PORT = "_port"
-    const val ROUTE_HELP = "_help"
     // Function Acts
     const val ROUTE_TOOL = "tool"
     const val ROUTE_DETAIL = "detail"
@@ -52,11 +55,14 @@ object NavRoute {
     const val DETAIL_APPMGR = "appmgr"
     // DetailAct - AppMgr
     const val DETAIL_APP_LIST = "appList"
+    const val DETAIL_APP_INFO = "appInfo"
+    const val UTIL_APP_INSTALL = "@appInstall"
+    const val UTIL_APP_UNINSTALL = "@appUninstall"
     // DetailAct - Screen
     const val EDITOR_SCREEN = "_Screen"
     // FileAct
+    const val DETAIL_FILE_INFO = "fileInfo"
     const val UTIL_FILE_UPLOAD = "@fileUpload"
     const val UTIL_FILE_DOWNLOAD = "@fileDownload"
     const val UTIL_FOLDER_CREATE = "@folderCreate"
-    const val DETAIL_FILE_INFO = "fileInfo"
 }

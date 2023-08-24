@@ -33,25 +33,10 @@ fun navToDeviceDetail(navController: NavController) {
     }
 }
 
+// region /* Screen Info */
 fun navToScreenDetail(navController: NavController) {
     global.set("detailType", NavRoute.DETAIL_SCREEN)
     global.set("detailTitleId", R.string.tool_screenInfo)
-    navController.navigate(NavRoute.ROUTE_DETAIL) {
-        popUpTo(NavRoute.ROUTE_TOOL)
-    }
-}
-
-fun navToAppManager(navController: NavController) {
-    global.set("detailType", NavRoute.DETAIL_APPMGR)
-    global.set("detailTitleId", R.string.tool_appManager)
-    navController.navigate(NavRoute.ROUTE_DETAIL) {
-        popUpTo(NavRoute.ROUTE_TOOL)
-    }
-}
-
-fun navToAppListDetail(navController: NavController) {
-    global.set("detailType", NavRoute.DETAIL_APP_LIST)
-    global.set("detailTitleId", R.string.detail_appList)
     navController.navigate(NavRoute.ROUTE_DETAIL) {
         popUpTo(NavRoute.ROUTE_TOOL)
     }
@@ -70,7 +55,46 @@ fun navToScreenDensityEditor(navController: NavController) {
         popUpTo(NavRoute.ROUTE_DETAIL)
     }
 }
+// endregion
 
+fun navToAppManager(navController: NavController) {
+    global.set("detailType", NavRoute.DETAIL_APPMGR)
+    global.set("detailTitleId", R.string.tool_appManager)
+    navController.navigate(NavRoute.ROUTE_DETAIL) {
+        popUpTo(NavRoute.ROUTE_TOOL)
+    }
+}
+
+fun navToAppListDetail(navController: NavController) {
+    global.set("detailType", NavRoute.DETAIL_APP_LIST)
+    global.set("detailTitleId", R.string.detail_appList)
+    navController.navigate(NavRoute.ROUTE_DETAIL) {
+        popUpTo(NavRoute.ROUTE_TOOL)
+    }
+}
+
+fun navToAppPackageInfo(navController: NavController, packageName: String) {
+    global.set("detailType", NavRoute.DETAIL_APP_INFO)
+    global.set("detailTitleId", R.string.detail_appInfo)
+    global.set("packageName", packageName)
+    navController.navigate(NavRoute.ROUTE_DETAIL) {
+        popUpTo(NavRoute.ROUTE_TOOL)
+    }
+}
+
+fun navToAppUninstall(navController: NavController) {
+    navController.navigate(NavRoute.UTIL_APP_UNINSTALL) {
+        popUpTo(NavRoute.ROUTE_TOOL)
+    }
+}
+
+fun navToAppInstall(navController: NavController) {
+    navController.navigate(NavRoute.UTIL_APP_INSTALL) {
+        popUpTo(NavRoute.ROUTE_DETAIL)
+    }
+}
+
+// region /* File Info */
 fun navToFileManager(navController: NavController) {
     global.set("fileSource", Constants.FILE_SOURCE_REMOTE)
     global.set("fileBrowserMode", Constants.BROWSER_MODE_BROWSE)
@@ -89,14 +113,6 @@ fun navToFileSelector(navController: NavController) {
 
 fun navToFileUploadFromTarget(navController: NavController, uploadTarget: String) {
     global.set("fileUploadTarget", uploadTarget)
-    navController.navigate(NavRoute.UTIL_FILE_UPLOAD) {
-        popUpTo(NavRoute.ROUTE_FILE)
-    }
-}
-
-fun navToFileUploadFromSource(navController: NavController, uploadSource: String) {
-    global.set("fileSource", Constants.FILE_SOURCE_REMOTE)
-    global.set("fileUploadSource", uploadSource)
     navController.navigate(NavRoute.UTIL_FILE_UPLOAD) {
         popUpTo(NavRoute.ROUTE_FILE)
     }
@@ -141,3 +157,4 @@ fun navToFolderCreate(navController: NavController, location: String) {
         popUpTo(NavRoute.ROUTE_FILE)
     }
 }
+// endregion

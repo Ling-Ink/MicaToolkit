@@ -12,7 +12,7 @@ class Global {
 
     fun set(key: String, value: Any) {
         globalDict.put(key, value)
-        Log.d("MICA", "Global | $globalDict")
+        Log.d("MICA", "Global | Set [ $key = $value ]")
     }
 
     fun containsKey(key: String): Boolean {
@@ -20,6 +20,7 @@ class Global {
     }
 
     private fun getAny(key: String): Any? {
+        Log.d("MICA", "Global | Get [ $key ]")
         return globalDict.get(key)
     }
 

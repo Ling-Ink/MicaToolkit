@@ -48,6 +48,9 @@
     <string name="tool_appManager">App Manager</string>
     <string name="detail_appList">App List</string>
     <string name="detail_appInstall">App Install</string>
+    <string name="detail_appInfo">App Info</string>
+    <string name="util_appUninstall">App Uninstall</string>
+    <string name="install_selectFile">Select apk</string>
     <!-- /* ADB Exec Verify */ -->
     <string name="util_execVerify">Verify Executor</string>
 </resources>

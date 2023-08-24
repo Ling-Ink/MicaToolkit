@@ -48,6 +48,9 @@
     <string name="tool_appManager">应用管理</string>
     <string name="detail_appList">应用列表</string>
     <string name="detail_appInstall">应用安装</string>
+    <string name="detail_appInfo">应用信息</string>
+    <string name="util_appUninstall">卸载应用</string>
+    <string name="install_selectFile">选择 apk</string>
     <!-- /* ADB Exec Verify */ -->
     <string name="util_execVerify">操作确认</string>
 </resources>

@@ -3,6 +3,7 @@ package com.moling.micatoolkit.presentation.activities.functionActs.detailAct.me
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FileCopy
 import androidx.compose.material.icons.outlined.Android
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Folder
@@ -41,7 +42,7 @@ fun fileInfoList(): List<FunctionItem> {
         Constants.DIRECTORY -> {
             ret.add(
                 FunctionItem(
-                    icon = Icons.Outlined.Description,
+                    icon = Icons.Outlined.Delete,
                     titleId = R.string.detail_file_delete, subTitleId = R.string.detail_file_delete_subTitle,
                     onClick = { /* IGNORE */ }, onLongClick = {
                         requireNotNull(Constants.adb).execShell("rm -r $filePath")
@@ -60,7 +61,7 @@ fun fileInfoList(): List<FunctionItem> {
             )
             ret.add(
                 FunctionItem(
-                    icon = Icons.Outlined.Description,
+                    icon = Icons.Outlined.Delete,
                     titleId = R.string.detail_file_delete, subTitleId = R.string.detail_file_delete_subTitle,
                     onClick = { /* IGNORE */ }, onLongClick = {
                         requireNotNull(Constants.adb).execShell("rm -r $filePath")
