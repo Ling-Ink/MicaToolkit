@@ -11,8 +11,8 @@ android {
         applicationId "com.moling.micatoolkit"
         minSdk 28
         targetSdk 33
-        versionCode 1
-        versionName "Rel-AL 0.1"
+        versionCode 1000
+        versionName "Rel-Vanilla 1.0"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -20,6 +20,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".indev"
+            versionNameSuffix '-indev'
+            debuggable true
+            jniDebuggable true
+        }
         release {
             minifyEnabled true
             shrinkResources true

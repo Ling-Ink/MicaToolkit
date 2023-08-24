@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- /* App Info */ -->
     <!--string name="app_name">MicaToolkit</string-->
+    <string name="app_about">关于</string>
+    <string name="app_project">Github 地址</string>
+    <!--string name="app_project_url" translatable="false">github.com/MicaProject</string-->
+    <string name="app_website">官网</string>
+    <!-- /* Pre-config Acts */ -->
     <string name="startAct_SelDevice">选择目标设备</string>
     <string name="targetAct_DeviceList">设备列表</string>
     <string name="portAct_RemotePort">端口(留空为5555)</string>

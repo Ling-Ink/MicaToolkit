@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- /* App Info */ -->
     <string name="app_name" translatable="false">MicaToolkit</string>
+    <string name="app_about">About</string>
+    <string name="app_project">Github Url</string>
+    <string name="app_project_url" translatable="false">https://github.com/MicaProject</string>
+    <string name="app_website">Website</string>
+    <string name="app_website_url" translatable="false">https://mica.moling.ink</string>
+    <!-- /* Pre-config Acts */ -->
     <string name="startAct_SelDevice">Select target device</string>
     <string name="targetAct_DeviceList">DeviceList</string>
     <string name="portAct_RemotePort">Remote Port(Default 5555)</string>

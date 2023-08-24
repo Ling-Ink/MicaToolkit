@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DevicesOther
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Watch
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -23,6 +24,7 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.moling.micatoolkit.R
+import com.moling.micatoolkit.presentation.navigator.navToInfoAct
 import com.moling.micatoolkit.presentation.navigator.navToPortAct
 import com.moling.micatoolkit.presentation.navigator.navToTargetAct
 import com.moling.micatoolkit.presentation.theme.MicaToolkitTheme
@@ -42,7 +44,7 @@ fun StartAct(navController: NavHostController) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(top = 25.dp)) {
                     Text(
                         text = stringResource(id = R.string.startAct_SelDevice),
                         modifier = Modifier.padding(bottom = 15.dp)
@@ -66,8 +68,30 @@ fun StartAct(navController: NavHostController) {
                         )
                     }
                 }
+                IconButton(
+                    imageVector = Icons.Outlined.Info,
+                    backgroundColor = Color.Transparent,
+                    onClick = { navToInfoAct(navController) }
+                )
             }
         }
+    }
+}
+
+@Composable
+fun IconButton(imageVector: ImageVector, backgroundColor: Color, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            contentColor = Color.White,
+            backgroundColor = backgroundColor
+        ),
+    ) {
+        Icon(
+            imageVector = imageVector,
+            contentDescription = "",
+            tint = Color.White
+        )
     }
 }
 

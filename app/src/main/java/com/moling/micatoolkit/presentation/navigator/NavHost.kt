@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.moling.micatoolkit.presentation.activities.functionActs.InfoAct
 import com.moling.micatoolkit.presentation.activities.functionActs.detailAct.DetailAct
 import com.moling.micatoolkit.presentation.activities.functionActs.PortAct
 import com.moling.micatoolkit.presentation.activities.functionActs.StartAct
@@ -22,6 +23,7 @@ fun NavHost() {
     val navController = rememberSwipeDismissableNavController()
     SwipeDismissableNavHost(navController = navController, startDestination = NavRoute.ROUTE_START) {
         composable(NavRoute.ROUTE_START) { StartAct(navController = navController) }
+        composable(NavRoute.ROUTE_INFO) { InfoAct() }
         composable(NavRoute.ROUTE_TARGET) { TargetAct(navController = navController) }
         composable(NavRoute.ROUTE_PORT) { PortAct(navController = navController) }
 
@@ -43,6 +45,7 @@ fun NavHost() {
 object NavRoute {
     // Pre-config Acts
     const val ROUTE_START = "_start"
+    const val ROUTE_INFO = "_info"
     const val ROUTE_TARGET = "_target"
     const val ROUTE_PORT = "_port"
     // Function Acts

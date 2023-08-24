@@ -7,7 +7,7 @@ import com.moling.micatoolkit.presentation.utils.adbExec
 import com.moling.micatoolkit.presentation.widgets.functionList.FunctionItem
 
 fun appList(): List<FunctionItem> {
-    val packages = adbExec("pm list packages -3").split("\n")
+    val packages = adbExec("pm list packages").split("\n")
     return packages.map { packageName ->
         FunctionItem(
             icon = Icons.Outlined.Android,

@@ -5,6 +5,12 @@ import com.moling.micatoolkit.R
 import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.global
 
+fun navToInfoAct(navController: NavController) {
+    navController.navigate(NavRoute.ROUTE_INFO) {
+        popUpTo(NavRoute.ROUTE_START)
+    }
+}
+
 fun navToTargetAct(navController: NavController) {
     navController.navigate(NavRoute.ROUTE_TARGET) {
         popUpTo(NavRoute.ROUTE_START)
@@ -57,6 +63,7 @@ fun navToScreenDensityEditor(navController: NavController) {
 }
 // endregion
 
+// region /* App Manager */
 fun navToAppManager(navController: NavController) {
     global.set("detailType", NavRoute.DETAIL_APPMGR)
     global.set("detailTitleId", R.string.tool_appManager)
@@ -93,6 +100,7 @@ fun navToAppInstall(navController: NavController) {
         popUpTo(NavRoute.ROUTE_DETAIL)
     }
 }
+// endregion
 
 // region /* File Info */
 fun navToFileManager(navController: NavController) {

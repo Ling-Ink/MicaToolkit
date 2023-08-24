@@ -8,6 +8,7 @@ package com.moling.micatoolkit.presentation.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
@@ -22,6 +23,7 @@ import dadb.AdbKeyPair
 import java.io.File
 import java.io.FileNotFoundException
 
+
 class MainActivity : ComponentActivity() {
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -35,6 +37,13 @@ class MainActivity : ComponentActivity() {
         // 初始化全局变量
         global = Global()
         global.set("SharedPreferences", getSharedPreferences("MicaToolkit", MODE_PRIVATE))
+        // 获取程序版本
+        try {
+            val info = applicationContext.packageManager.getPackageInfo(applicationContext.packageName, 0)
+            global.set("versionName", info.versionName)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
         // 加载 AdbKeyPair
         genKeyPair(filesDir)
         context = applicationContext
