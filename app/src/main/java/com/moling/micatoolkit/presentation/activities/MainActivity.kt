@@ -15,6 +15,9 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.app.ActivityCompat
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import com.moling.micatoolkit.presentation.Global
 import com.moling.micatoolkit.presentation.activities.MainActivity.Companion.global
 import com.moling.micatoolkit.presentation.navigator.NavHost
@@ -57,6 +60,11 @@ class MainActivity : ComponentActivity() {
                 NavHost()
             }
         }
+        // Microsoft App Center Analytics
+        AppCenter.start(
+            application, "ccc2e6fe-3f89-4796-b800-8800bc7e3652",
+            Analytics::class.java, Crashes::class.java
+        )
     }
 }
 
