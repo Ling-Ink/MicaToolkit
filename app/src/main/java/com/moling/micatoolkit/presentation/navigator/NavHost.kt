@@ -11,6 +11,7 @@ import com.moling.micatoolkit.presentation.activities.functionActs.TargetAct
 import com.moling.micatoolkit.presentation.activities.functionActs.ToolAct
 import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.UploadFileAct
 import com.moling.micatoolkit.presentation.activities.functionActs.editorAct.ScreenEditorAct
+import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.CreateFolderAct
 import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.DownloadFileAct
 import com.moling.micatoolkit.presentation.activities.functionActs.fileAct.FilesAct
 
@@ -31,6 +32,7 @@ fun NavHost() {
 
         composable(NavRoute.UTIL_FILE_UPLOAD) { UploadFileAct(navController = navController) }
         composable(NavRoute.UTIL_FILE_DOWNLOAD) { DownloadFileAct(navController = navController) }
+        composable(NavRoute.UTIL_FOLDER_CREATE) { CreateFolderAct(navController = navController) }
     }
 }
 
@@ -55,5 +57,6 @@ object NavRoute {
     // FileAct
     const val UTIL_FILE_UPLOAD = "@fileUpload"
     const val UTIL_FILE_DOWNLOAD = "@fileDownload"
+    const val UTIL_FOLDER_CREATE = "@folderCreate"
     const val DETAIL_FILE_INFO = "fileInfo"
 }

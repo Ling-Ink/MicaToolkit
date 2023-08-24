@@ -102,10 +102,11 @@ fun navToFileUploadFromSource(navController: NavController, uploadSource: String
     }
 }
 
-fun navToFileInfo(navController: NavController, path: String) {
+fun navToFileInfo(navController: NavController, path: String, type: Int) {
     global.set("detailType", NavRoute.DETAIL_FILE_INFO)
     global.set("detailTitleId", R.string.detail_fileInfo)
     global.set("filePath", path)
+    global.set("fileType", type)
     navController.navigate(NavRoute.ROUTE_DETAIL) {
         popUpTo(NavRoute.ROUTE_FILE)
     }
@@ -131,5 +132,12 @@ fun navToFileDownloadFromTarget(navController: NavController, downloadTarget: St
     global.set("fileDownloadTarget", downloadTarget)
     navController.navigate(NavRoute.UTIL_FILE_DOWNLOAD) {
         popUpTo(NavRoute.ROUTE_DETAIL)
+    }
+}
+
+fun navToFolderCreate(navController: NavController, location: String) {
+    global.set("folderCreateLocation", location)
+    navController.navigate(NavRoute.UTIL_FOLDER_CREATE) {
+        popUpTo(NavRoute.ROUTE_FILE)
     }
 }

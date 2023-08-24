@@ -28,6 +28,7 @@ import com.moling.micatoolkit.presentation.Constants
 import com.moling.micatoolkit.presentation.navigator.navToFileDownloadFromTarget
 import com.moling.micatoolkit.presentation.navigator.navToFileInfo
 import com.moling.micatoolkit.presentation.navigator.navToFileUploadFromTarget
+import com.moling.micatoolkit.presentation.navigator.navToFolderCreate
 import com.moling.micatoolkit.presentation.widgets.functionList.FuncChip
 
 @Composable
@@ -61,7 +62,7 @@ fun FileList(
                         onDirChange(location.split("/").dropLast(1).joinToString("/"))
                     }
                     if (isRemoteMode) {
-                        CreateFolderChip()
+                        CreateFolderChip(navController, location)
                         UploadChip(navController, location)
                     }
                     if (browseMode == Constants.BROWSER_MODE_DIRECTORY) {
@@ -84,7 +85,7 @@ fun FileList(
                     }
                 },
                 onLongClick = {
-                    if (it.type != Constants.DIRECTORY) navToFileInfo(navController, "${location}/${it.name}")
+                    navToFileInfo(navController, "${location}/${it.name}", it.type)
                 },
                 colors = ChipDefaults.secondaryChipColors(),
                 modifier = Modifier.fillMaxWidth(),
@@ -113,9 +114,14 @@ fun BackChip(
 }
 
 @Composable
-fun CreateFolderChip() {
+fun CreateFolderChip(
+    navController: NavController,
+    location: String
+) {
     Chip(
-        onClick = { /*TODO*/ },
+        onClick = {
+            navToFolderCreate(navController, location)
+        },
         colors = ChipDefaults.secondaryChipColors(),
         modifier = Modifier.padding(start = 5.dp, end = 5.dp),
         label = {
